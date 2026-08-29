@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta
+      name="description"
+      content="Un mapa interactivo de consistencia ideológica para cruzar creencias libertarias con situaciones cotidianas."
+    >
+    <title>Libertómetro de Consistencia</title>
+    <link rel="stylesheet" href="./styles.css">
+  </head>
+  <body>
+    <main class="shell">
+      <section id="survey-screen" class="screen survey-screen">
+        <div class="intro">
+          <p class="kicker">Laboratorio de contradicciones</p>
+          <h1>Libertómetro de Consistencia</h1>
+          <p>
+            Marcá las frases con las que te sentís cómodo. Después el sistema
+            te va a cruzar esas ideas con preguntas de la vida real y va a
+            dibujar los cortocircuitos en un mapa conceptual.
+          </p>
+        </div>
+
+        <div class="survey-layout">
+          <section class="belief-panel">
+            <div class="panel-heading">
+              <h2>Creencias iniciales</h2>
+              <div class="heading-actions">
+                <button id="toggle-all-beliefs" class="mini-button" type="button">
+                  Marcar todas
+                </button>
+                <span id="belief-count">0 marcadas</span>
+              </div>
+            </div>
+            <div id="belief-list" class="belief-list" aria-label="Lista de creencias"></div>
+          </section>
+
+          <aside class="start-card">
+            <button id="start-button" class="primary-button" type="button">
+              Comenzar
+            </button>
+            <button id="load-button" class="ghost-button" type="button">
+              Continuar partida guardada
+            </button>
+          </aside>
+        </div>
+      </section>
+
+      <section id="app-screen" class="screen app-screen hidden">
+        <header class="topbar">
+          <div>
+            <p class="kicker">Mapa en vivo</p>
+            <h1>Libertómetro de Consistencia</h1>
+          </div>
+          <div class="topbar-actions">
+            <button id="next-question" class="secondary-button" type="button">
+              Nueva pregunta
+            </button>
+            <button id="reset-button" class="ghost-button" type="button">
+              Reiniciar
+            </button>
+          </div>
+        </header>
+
+        <div class="workspace">
+          <section class="map-panel" aria-label="Mapa conceptual de respuestas">
+            <div class="map-toolbar">
+              <div>
+                <h2 id="current-title">Arrancá con una pregunta</h2>
+                <p id="current-subtitle">
+                  Las respuestas van quedando conectadas para mostrar el hilo.
+                </p>
+              </div>
+              <div class="status-pill" id="question-status">0 de 12 vistas</div>
+            </div>
+            <div id="concept-map" class="concept-map"></div>
+          </section>
+        </div>
+      </section>
+    </main>
+
+    <aside id="meter-panel" class="meter-panel" aria-label="Panel de libertarismo e inconsistencias">
+      <div class="meter-card">
+        <div class="meter-head">
+          <span>Libertarismo</span>
+          <strong id="score-percent">0%</strong>
+        </div>
+        <div class="meter-body">
+          <div class="meter-track" aria-hidden="true">
+            <div id="score-bar" class="meter-fill"></div>
+          </div>
+          <div>
+            <p id="score-message">
+              El medidor sube con tus creencias iniciales.
+            </p>
+            <p id="reasoning-count" class="reasoning-count">
+              Tu razonamiento todavía no acumula inconsistencias.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div id="deconversion-banner" class="deconversion-banner hidden">
+        <strong>Felicitaciones.</strong>
+        <span>Desmarcaste todas las creencias iniciales.</span>
+      </div>
+
+      <section class="history-card">
+        <div class="panel-heading">
+          <h2>Inconsistencias</h2>
+          <span id="inconsistency-count">0 halladas</span>
+        </div>
+        <ol id="inconsistency-list" class="inconsistency-list"></ol>
+      </section>
+
+      <section class="history-card compact">
+        <div class="panel-heading">
+          <h2>Creencias activas</h2>
+          <span id="selected-belief-count">0</span>
+        </div>
+        <div id="selected-beliefs" class="selected-beliefs"></div>
+      </section>
+    </aside>
+
+    <div id="captcha-layer" class="captcha-layer" aria-live="polite"></div>
+
+    <script src="./app.js"></script>
+  </body>
+</html>
