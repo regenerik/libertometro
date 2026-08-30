@@ -1,4 +1,4 @@
-const STORAGE_KEY = "libertometro-state-v11";
+const STORAGE_KEY = "libertometro-state-v12";
 
 const beliefs = [
   { id: "no_state", text: "El Estado no debería existir." },
@@ -28,7 +28,7 @@ const beliefs = [
   { id: "no_external_effects", text: "Mientras yo no firme ni cobre, lo que hagan otros no debería convertirse en mi problema." },
   { id: "presidential_cabinet", text: "Confío en el gabinete libertario aunque incluya nombres de la política tradicional." },
   { id: "climate_socialist_lie", text: "El calentamiento global es otra mentira del socialismo." },
-  { id: "future_debt_theft", text: "Tomar deuda es inmoral porque se la cobran a generaciones que no votaron." },
+  { id: "future_debt_theft", text: "Si el gobierno libertario necesita pedir deuda porque los K se robaron todo, está bien." },
   { id: "disappeared_number_indignation", text: "Me indigna que se use la cifra de 30.000 desaparecidos como relato político." },
   { id: "anti_communism", text: "Me cae mal el comunismo y no habría que negociar con comunistas." },
   { id: "milei_voter", text: "Acompaño a Milei aunque cambie de postura, porque el rumbo importa más." }
@@ -1062,20 +1062,21 @@ questions.push(
   {
     id: "future_debt",
     title: "Deuda y futuras generaciones",
-    prompt: "Si un gobierno toma deuda o busca financiamiento para sostener su plan, ¿te parece aceptable?",
-    context: "La deuda cruza el archivo fiscal de campaña con la defensa del equipo propio cuando gobierna.",
+    prompt: "Si endeudar futuras generaciones es cobrarles impuestos a personas que no votaron, ¿debería estar mal aunque lo haga un gobierno que apoyás?",
+    context: "La deuda cruza el archivo fiscal de campaña con la defensa del préstamo cuando gobierna el equipo propio.",
     answers: [
       {
-        label: "No, es inmoral cargarle la cuenta a gente que no votó",
+        label: "Sí, debería estar mal siempre",
         value: "debt_future_no",
         checks: [
           {
             id: "debt_archive_vs_government",
             anyBeliefs: ["future_debt_theft", "milei_voter", "presidential_cabinet"],
-            title: "La deuda no cambia de moral por cambiar de firma",
-            detail: "Si tomar deuda es pasarle impuestos futuros a gente que no votó, el criterio no puede cambiar porque ahora lo negocie el gobierno propio. Antes era inmoral; ahora no puede volverse una simple herramienta técnica.",
+            title: "La excepción era para los tuyos",
+            detail: "Si endeudar futuras generaciones está mal siempre, choca con haber marcado que está bien cuando el gobierno libertario pide deuda porque los K se robaron todo. Ahí el principio no era contra la deuda: era permiso para el equipo propio.",
             sources: [
               { label: "Casa Rosada: deuda como impuestos futuros", url: "https://www.casarosada.gob.ar/informacion/discursos/51058-palabras-del-presidente-de-la-nacion-javier-milei-ante-el-consejo-interamericano-de-comercio-y-produccion-cicyp-2025" },
+              { label: "Argentina: acuerdo FMI USD 20.000 millones", url: "https://www.argentina.gob.ar/node/462281" },
               { label: "Chequeado: deuda en la gestión Milei", url: "https://chequeado.com/el-explicador/cae-la-deuda-total-en-la-gestion-de-javier-milei-pero-aumenta-el-endeudamiento-en-dolares/" },
               { label: "TN: programa financiero 2026-2027", url: "https://tn.com.ar/politica/2026/07/11/la-hoja-de-ruta-de-javier-milei-para-2027-torniquete-al-dolar-y-alianza-con-gobernadores/" }
             ],
@@ -1088,8 +1089,9 @@ questions.push(
                     id: "debt_rollover_excuse",
                     anyBeliefs: ["future_debt_theft", "taxes_theft"],
                     title: "La cuenta sigue viajando al futuro",
-                    detail: "Cambiar una deuda por otra puede ordenar vencimientos, pero no borra el punto moral: alguien en el futuro queda pagando decisiones que no tomó. Si eso era robo cuando lo hacía otro gobierno, también lo es cuando se presenta prolijo.",
+                    detail: "Cambiar una deuda por otra puede ordenar vencimientos, pero no borra el punto central: alguien en el futuro queda pagando decisiones que no tomó. Si los impuestos son robo, los impuestos futuros tampoco se vuelven libertad porque los firma Caputo.",
                     sources: [
+                      { label: "Argentina: acuerdo FMI USD 20.000 millones", url: "https://www.argentina.gob.ar/node/462281" },
                       { label: "Chequeado: deuda en la gestión Milei", url: "https://chequeado.com/el-explicador/cae-la-deuda-total-en-la-gestion-de-javier-milei-pero-aumenta-el-endeudamiento-en-dolares/" },
                       { label: "Casa Rosada: deuda como impuestos futuros", url: "https://www.casarosada.gob.ar/informacion/discursos/51058-palabras-del-presidente-de-la-nacion-javier-milei-ante-el-consejo-interamericano-de-comercio-y-produccion-cicyp-2025" }
                     ]
@@ -1103,17 +1105,21 @@ questions.push(
         ]
       },
       {
-        label: "Sí, si es este gobierno es para ordenar",
+        label: "No, si es Milei es para ordenar el desastre que dejaron",
         value: "debt_if_ours_yes",
         checks: [
           {
             id: "debt_team_permission",
             anyBeliefs: ["future_debt_theft", "taxes_theft", "milei_voter", "presidential_cabinet"],
-            title: "Principio fiscal con permiso partidario",
-            detail: "Si la deuda era inmoral porque la pagan generaciones que no votaron, no se vuelve moral por confianza en un ministro o en un presidente. Ahí no cambió el principio: cambió tu permiso.",
+            title: "Impuestos futuros, pero con pulsera libertaria",
+            detail: "Marcaste que está bien pedir deuda si la pide el gobierno libertario por culpa de los K. Pero Milei mismo definió la deuda como impuestos futuros: si los impuestos son robo, estás defendiendo robo futuro cuando lo firma tu presidente. Además, el gobierno anunció oficialmente un acuerdo con el FMI por USD 20.000 millones.",
             sources: [
               { label: "Casa Rosada: deuda como impuestos futuros", url: "https://www.casarosada.gob.ar/informacion/discursos/51058-palabras-del-presidente-de-la-nacion-javier-milei-ante-el-consejo-interamericano-de-comercio-y-produccion-cicyp-2025" },
+              { label: "Argentina: acuerdo FMI USD 20.000 millones", url: "https://www.argentina.gob.ar/node/462281" },
               { label: "Chequeado: deuda en la gestión Milei", url: "https://chequeado.com/el-explicador/cae-la-deuda-total-en-la-gestion-de-javier-milei-pero-aumenta-el-endeudamiento-en-dolares/" }
+            ],
+            replies: [
+              makeCorruptionReply("future_debt_team")
             ]
           }
         ]
@@ -1126,9 +1132,10 @@ questions.push(
             id: "debt_inflation_tradeoff",
             anyBeliefs: ["future_debt_theft", "taxes_theft"],
             title: "Impuestos futuros por tranquilidad presente",
-            detail: "Estás aceptando cambiar alivio presente por costos futuros. Es exactamente el mecanismo que la crítica libertaria denuncia cuando lo hace otro gobierno.",
+            detail: "Estás aceptando cambiar alivio presente por deuda futura. El truco es viejo: cuando lo hace otro gobierno es populismo; cuando lo hace el tuyo, le decís plan económico.",
             sources: [
               { label: "INDEC IPC", url: "https://www.indec.gob.ar/Nivel4/Tema/3/5/31" },
+              { label: "Argentina: acuerdo FMI USD 20.000 millones", url: "https://www.argentina.gob.ar/node/462281" },
               { label: "Chequeado: deuda en la gestión Milei", url: "https://chequeado.com/el-explicador/cae-la-deuda-total-en-la-gestion-de-javier-milei-pero-aumenta-el-endeudamiento-en-dolares/" }
             ]
           }
