@@ -5,7 +5,7 @@ Mini app estática para cruzar afirmaciones libertarias iniciales con escenarios
 ## Qué incluye
 
 - Encuesta inicial con 31 afirmaciones libertarias frecuentes.
-- 20 preguntas aleatorias con ramas internas y réplicas.
+- 21 preguntas aleatorias con ramas internas y réplicas.
 - Historial local de respuestas e inconsistencias usando `localStorage`.
 - Barra lateral de "libertarismo" basada en creencias activas.
 - Botón "Ya no creo en esto" en las creencias que disparan inconsistencias.

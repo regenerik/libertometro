@@ -1,4 +1,4 @@
-const STORAGE_KEY = "libertometro-state-v10";
+const STORAGE_KEY = "libertometro-state-v11";
 
 const beliefs = [
   { id: "no_state", text: "El Estado no debería existir." },
@@ -25,19 +25,23 @@ const beliefs = [
   { id: "capital_without_flag", text: "El capital debe circular libremente, sin patriotismo económico." },
   { id: "state_bad_manager", text: "El Estado no sabe administrar nada." },
   { id: "no_inherited_costs", text: "No quiero pagar gastos que decidió otra persona." },
-  { id: "no_external_effects", text: "Nada de lo que hagan los demás tiene que afectarme." },
-  { id: "presidential_cabinet", text: "Estoy de acuerdo con el gabinete y la constitución del partido presidencial." },
+  { id: "no_external_effects", text: "Mientras yo no firme ni cobre, lo que hagan otros no debería convertirse en mi problema." },
+  { id: "presidential_cabinet", text: "Confío en el gabinete libertario aunque incluya nombres de la política tradicional." },
   { id: "climate_socialist_lie", text: "El calentamiento global es otra mentira del socialismo." },
-  { id: "coerced_by_need", text: "Una decisión tomada por hambre o desesperación no es completamente libre." },
-  { id: "disappeared_number_indignation", text: "Me indigna que se mienta con la cantidad de personas desaparecidas durante la dictadura." },
+  { id: "future_debt_theft", text: "Tomar deuda es inmoral porque se la cobran a generaciones que no votaron." },
+  { id: "disappeared_number_indignation", text: "Me indigna que se use la cifra de 30.000 desaparecidos como relato político." },
   { id: "anti_communism", text: "Me cae mal el comunismo y no habría que negociar con comunistas." },
-  { id: "milei_voter", text: "Voté o votaría a Milei." }
+  { id: "milei_voter", text: "Acompaño a Milei aunque cambie de postura, porque el rumbo importa más." }
 ];
 
 const defaultSources = [
   {
-    label: "Marco ideológico",
-    url: "https://plato.stanford.edu/entries/libertarianism/"
+    label: "Chequeado: qué es el libertarismo",
+    url: "https://chequeado.com/el-explicador/que-es-el-libertarismo/"
+  },
+  {
+    label: "Economipedia: libertarismo",
+    url: "https://economipedia.com/definiciones/libertarismo.html"
   }
 ];
 
@@ -50,9 +54,9 @@ function makeCorruptionReply(scope) {
         id: `${scope}_previous_theft_excuse`,
         anyBeliefs: ["taxes_theft", "state_bad_manager", "presidential_cabinet"],
         title: "Robo selectivo",
-    detail: "Si el anterior robó, eso no vuelve correcto que el actual use esa excusa para justificar contradicciones, ajustes opacos o acuerdos con la misma estructura política que decía venir a desplazar.",
+        detail: "Si el anterior robó, eso no vuelve correcto que el actual use esa excusa para justificar contradicciones, ajustes opacos o acuerdos con la misma estructura política que decía venir a desplazar.",
         sources: [
-          { label: "Marco ideológico", url: "https://plato.stanford.edu/entries/libertarianism/" }
+          { label: "Chequeado: qué es el libertarismo", url: "https://chequeado.com/el-explicador/que-es-el-libertarismo/" }
         ],
         replies: [
           {
@@ -191,9 +195,10 @@ const questions = [
         checks: [
           {
             id: "street_no_emergency",
+            kind: "reconsider",
             anyBeliefs: ["meritocracy", "poor_choice"],
-            title: "La meritocracia no esquiva ambulancias",
-            detail: "Cuando el pozo retrasa una ambulancia o rompe una silla de ruedas, el resultado ya no depende del mérito individual sino de infraestructura compartida."
+            title: "Esto se alinea con tus creencias",
+            detail: "Esto se alinea con una mirada dura de mérito individual. Te invitamos a reconsiderar: cuando el pozo retrasa una ambulancia o rompe una silla de ruedas, el resultado ya no depende del mérito sino de infraestructura compartida."
           }
         ]
       }
@@ -249,8 +254,9 @@ const questions = [
         checks: [
           {
             id: "malvinas_indifference",
+            kind: "reconsider",
             anyBeliefs: ["capital_without_flag"],
-            title: "Consistencia fría",
+            title: "Consistente con mercado sin bandera",
             detail: "Esta respuesta es más coherente con la idea de capital sin bandera, aunque suele chocar con discursos patrióticos usados para pedir sacrificios colectivos."
           }
         ]
@@ -365,9 +371,10 @@ const questions = [
         checks: [
           {
             id: "hospital_no_cost",
+            kind: "reconsider",
             anyBeliefs: ["meritocracy"],
-            title: "Mérito con fecha de vencimiento",
-            detail: "La salud no espera a que el mercado evalúe tu trayectoria. Una mala noche puede borrar cualquier mérito acumulado."
+            title: "Esto se alinea con tus creencias",
+            detail: "Esto puede alinearse con una idea extrema de responsabilidad individual. Te invitamos a reconsiderar: la salud no espera a que el mercado evalúe tu trayectoria. Una mala noche puede borrar cualquier mérito acumulado."
           }
         ]
       }
@@ -990,10 +997,9 @@ questions.push(
             id: "same_old_inside_power",
             anyBeliefs: ["presidential_cabinet", "milei_voter"],
             title: "Anticasta con nombres de siempre",
-            detail: "Si estás de acuerdo con que los mismos de siempre no deberían ser parte del poder, choca con avalar un equipo donde aparecen figuras de larga trayectoria previa como Patricia Bullrich, Luis Caputo, Diego Santilli, Federico Sturzenegger, Martín Menem, Eduardo Menem, Lule Menem, Santiago Caputo y Karina Milei. La inconsistencia no necesita probar que sean chorros: alcanza con que sean parte de la estructura política que el discurso prometía desplazar.",
+            detail: "Si estás de acuerdo con que los mismos de siempre no deberían ser parte del poder, choca con avalar un equipo donde aparecen figuras de larga trayectoria previa como Patricia Bullrich, Luis Caputo, Diego Santilli, Federico Sturzenegger, Martín Menem, Eduardo Menem, Lule Menem, Santiago Caputo y Karina Milei. No hace falta probar que cada uno sea 'chorro': alcanza con que sean nombres de la política que el discurso decía venir a correr.",
             sources: [
               { label: "Reunión de Gabinete 2026", url: "https://www.argentina.gob.ar/node/497027" },
-              { label: "World Leaders CIA", url: "https://www.cia.gov/resources/world-leaders/foreign-governments/argentina/" },
               { label: "Gabinete inicial LA NACION", url: "https://www.lanacion.com.ar/politica/asi-quedo-el-gabinete-del-presidente-javier-milei-uno-por-uno-todos-los-ministros-y-secretarios-nid10122023/" },
               { label: "Mismos de siempre EL PAIS", url: "https://elpais.com/argentina/2023-11-01/la-acrobacia-discursiva-de-milei-del-macri-repugnante-y-fascista-de-ayer-a-coincidir-hoy-en-un-90.html" }
             ],
@@ -1054,6 +1060,83 @@ questions.push(
     ]
   },
   {
+    id: "future_debt",
+    title: "Deuda y futuras generaciones",
+    prompt: "Si un gobierno toma deuda o busca financiamiento para sostener su plan, ¿te parece aceptable?",
+    context: "La deuda cruza el archivo fiscal de campaña con la defensa del equipo propio cuando gobierna.",
+    answers: [
+      {
+        label: "No, es inmoral cargarle la cuenta a gente que no votó",
+        value: "debt_future_no",
+        checks: [
+          {
+            id: "debt_archive_vs_government",
+            anyBeliefs: ["future_debt_theft", "milei_voter", "presidential_cabinet"],
+            title: "La deuda no cambia de moral por cambiar de firma",
+            detail: "Si tomar deuda es pasarle impuestos futuros a gente que no votó, el criterio no puede cambiar porque ahora lo negocie el gobierno propio. Antes era inmoral; ahora no puede volverse una simple herramienta técnica.",
+            sources: [
+              { label: "Casa Rosada: deuda como impuestos futuros", url: "https://www.casarosada.gob.ar/informacion/discursos/51058-palabras-del-presidente-de-la-nacion-javier-milei-ante-el-consejo-interamericano-de-comercio-y-produccion-cicyp-2025" },
+              { label: "Chequeado: deuda en la gestión Milei", url: "https://chequeado.com/el-explicador/cae-la-deuda-total-en-la-gestion-de-javier-milei-pero-aumenta-el-endeudamiento-en-dolares/" },
+              { label: "TN: programa financiero 2026-2027", url: "https://tn.com.ar/politica/2026/07/11/la-hoja-de-ruta-de-javier-milei-para-2027-torniquete-al-dolar-y-alianza-con-gobernadores/" }
+            ],
+            replies: [
+              {
+                label: "Pero es deuda para pagar deuda vieja",
+                value: "debt_to_pay_debt",
+                checks: [
+                  {
+                    id: "debt_rollover_excuse",
+                    anyBeliefs: ["future_debt_theft", "taxes_theft"],
+                    title: "La cuenta sigue viajando al futuro",
+                    detail: "Cambiar una deuda por otra puede ordenar vencimientos, pero no borra el punto moral: alguien en el futuro queda pagando decisiones que no tomó. Si eso era robo cuando lo hacía otro gobierno, también lo es cuando se presenta prolijo.",
+                    sources: [
+                      { label: "Chequeado: deuda en la gestión Milei", url: "https://chequeado.com/el-explicador/cae-la-deuda-total-en-la-gestion-de-javier-milei-pero-aumenta-el-endeudamiento-en-dolares/" },
+                      { label: "Casa Rosada: deuda como impuestos futuros", url: "https://www.casarosada.gob.ar/informacion/discursos/51058-palabras-del-presidente-de-la-nacion-javier-milei-ante-el-consejo-interamericano-de-comercio-y-produccion-cicyp-2025" }
+                    ]
+                  }
+                ]
+              },
+              makeCorruptionReply("future_debt"),
+              makeCaptchaReply("future_debt")
+            ]
+          }
+        ]
+      },
+      {
+        label: "Sí, si es este gobierno es para ordenar",
+        value: "debt_if_ours_yes",
+        checks: [
+          {
+            id: "debt_team_permission",
+            anyBeliefs: ["future_debt_theft", "taxes_theft", "milei_voter", "presidential_cabinet"],
+            title: "Principio fiscal con permiso partidario",
+            detail: "Si la deuda era inmoral porque la pagan generaciones que no votaron, no se vuelve moral por confianza en un ministro o en un presidente. Ahí no cambió el principio: cambió tu permiso.",
+            sources: [
+              { label: "Casa Rosada: deuda como impuestos futuros", url: "https://www.casarosada.gob.ar/informacion/discursos/51058-palabras-del-presidente-de-la-nacion-javier-milei-ante-el-consejo-interamericano-de-comercio-y-produccion-cicyp-2025" },
+              { label: "Chequeado: deuda en la gestión Milei", url: "https://chequeado.com/el-explicador/cae-la-deuda-total-en-la-gestion-de-javier-milei-pero-aumenta-el-endeudamiento-en-dolares/" }
+            ]
+          }
+        ]
+      },
+      {
+        label: "No me importa mientras baje la inflación",
+        value: "debt_inflation_first",
+        checks: [
+          {
+            id: "debt_inflation_tradeoff",
+            anyBeliefs: ["future_debt_theft", "taxes_theft"],
+            title: "Impuestos futuros por tranquilidad presente",
+            detail: "Estás aceptando cambiar alivio presente por costos futuros. Es exactamente el mecanismo que la crítica libertaria denuncia cuando lo hace otro gobierno.",
+            sources: [
+              { label: "INDEC IPC", url: "https://www.indec.gob.ar/Nivel4/Tema/3/5/31" },
+              { label: "Chequeado: deuda en la gestión Milei", url: "https://chequeado.com/el-explicador/cae-la-deuda-total-en-la-gestion-de-javier-milei-pero-aumenta-el-endeudamiento-en-dolares/" }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
     id: "climate",
     title: "Clima y catástrofes",
     prompt: "Si una sequía, inundación o ola de calor arruina cosechas y barrios, ¿debería haber políticas públicas para prevenir y adaptarse?",
@@ -1067,10 +1150,10 @@ questions.push(
             id: "climate_policy_denial",
             anyBeliefs: ["climate_socialist_lie", "no_environment", "market_self", "no_state"],
             title: "La mentira socialista te inundó el living",
-            detail: "Si marcaste que el calentamiento global es una mentira socialista o que la regulación ambiental sobra, pedir prevención pública cuando llegan sequías, olas de calor o inundaciones contradice esa negación inicial. NASA e IPCC sostienen que la influencia humana en el calentamiento actual está respaldada por evidencia científica robusta.",
+            detail: "Si marcaste que el calentamiento global es una mentira socialista o que la regulación ambiental sobra, pedir prevención pública cuando llegan sequías, olas de calor o inundaciones contradice esa negación inicial. La NASA en español explica que el calentamiento actual tiene evidencia medible y que la actividad humana es una causa central.",
             sources: [
-              { label: "NASA consenso", url: "https://science.nasa.gov/climate-change/scientific-consensus/" },
-              { label: "IPCC AR6", url: "https://www.ipcc.ch/report/ar6/wg1/chapter/chapter-3/" },
+              { label: "NASA Ciencia: evidencia", url: "https://ciencia.nasa.gov/cambio-climatico/evidencia/" },
+              { label: "NASA Ciencia: causas", url: "https://ciencia.nasa.gov/cambio-climatico/causas/" },
               { label: "Chequeado Milei clima", url: "https://chequeado.com/el-explicador/que-dijo-javier-milei-sobre-el-cambio-climatico/" }
             ],
             replies: [
@@ -1082,10 +1165,10 @@ questions.push(
                     id: "climate_natural_cycle",
                     anyBeliefs: ["climate_socialist_lie"],
                     title: "Ciclo natural como comodín",
-                    detail: "La existencia de ciclos naturales no explica por sí sola el calentamiento observado desde mediados del siglo XX. NASA resume que no hay una explicación alternativa convincente que reemplace el rol dominante de la actividad humana.",
+                    detail: "Que existan ciclos naturales no alcanza para explicar el calentamiento actual. La explicación no es 'pasa siempre': los datos muestran una aceleración ligada a actividades humanas.",
                     sources: [
-                      { label: "NASA evidencia", url: "https://science.nasa.gov/climate-change/evidence/" },
-                      { label: "NASA qué es", url: "https://science.nasa.gov/climate-change/what-is-climate-change/" }
+                      { label: "NASA Ciencia: evidencia", url: "https://ciencia.nasa.gov/cambio-climatico/evidencia/" },
+                      { label: "NASA Ciencia: causas", url: "https://ciencia.nasa.gov/cambio-climatico/causas/" }
                     ]
                   }
                 ]
@@ -1106,7 +1189,7 @@ questions.push(
             title: "Adaptación privada, rescate público",
             detail: "En otros hilos pediste frenar contaminación, recibir ayuda de emergencia o limitar servicios esenciales. Cuando el daño climático llega, el mercado solo suele socializar pérdidas que antes prometía resolver sin Estado.",
             sources: [
-              { label: "NASA FAQ", url: "https://science.nasa.gov/climate-change/faq/" }
+              { label: "NASA Ciencia: efectos", url: "https://ciencia.nasa.gov/cambio-climatico/los-efectos-del-cambio-climatico/" }
             ]
           }
         ]
@@ -1121,7 +1204,7 @@ questions.push(
             title: "Indiferencia con consecuencias",
             detail: "Si al inicio defendiste recursos, mercado o rechazo a regulaciones, correrte justo cuando aparecen agua, cosechas y barrios inundados no borra que tus marcas tienen efectos materiales.",
             sources: [
-              { label: "NASA cambio climático", url: "https://science.nasa.gov/climate-change/" }
+              { label: "NASA Ciencia: efectos", url: "https://ciencia.nasa.gov/cambio-climatico/los-efectos-del-cambio-climatico/" }
             ]
           }
         ]
@@ -1140,11 +1223,12 @@ questions.push(
         checks: [
           {
             id: "organ_market_coercion",
-            anyBeliefs: ["coerced_by_need"],
-            title: "Contrato libre bajo necesidad extrema",
-            detail: "Si marcaste que una decisión tomada por hambre o desesperación no es completamente libre, vender un riñón por necesidad no puede tratarse como una transacción libre y aceptable. La necesidad económica cambia el peso real del consentimiento.",
+            kind: "reconsider",
+            anyBeliefs: ["private_contracts", "market_self", "poor_choice"],
+            title: "Esto se alinea con tus creencias",
+            detail: "Esto se alinea con tu idea de mercado y contratos entre privados. Te invitamos a reconsiderar: cuando alguien vende un riñón por hambre, la necesidad económica pesa más que la firma. La libertad formal puede esconder desesperación material.",
             sources: [
-              { label: "OMS trasplantes", url: "https://www.who.int/publications/i/item/WHO-HTP-EHT-CPR-2010.01" },
+              { label: "OPS/OMS trasplantes", url: "https://www.paho.org/es/temas/donacion-trasplantes" },
               { label: "INCUCAI rechazo", url: "https://www.infobae.com/salud/2023/05/04/el-director-del-incucai-cruzo-a-milei-la-venta-de-organos-es-una-postura-disparatada-no-es-viable-y-va-en-contra-del-consenso-global/" },
               { label: "Archivo Milei órganos", url: "https://www.pagina12.com.ar/426307-javier-milei-a-favor-de-la-venta-de-organos-es-un-mercado-ma" }
             ],
@@ -1159,7 +1243,7 @@ questions.push(
                     title: "Más oferta, menos confianza",
                     detail: "Los sistemas de trasplante dependen de confianza pública, trazabilidad, equidad y criterios médicos. Si el acceso se ordena por precio, el cuerpo pobre se vuelve inventario del cuerpo rico.",
                     sources: [
-                      { label: "OMS trasplantes", url: "https://www.who.int/health-topics/transplantation/" },
+                      { label: "OPS/OMS trasplantes", url: "https://www.paho.org/es/temas/donacion-trasplantes" },
                       { label: "LA NACION INCUCAI", url: "https://www.lanacion.com.ar/sociedad/venta-de-organos-que-dijo-el-incucai-sobre-las-afirmaciones-de-javier-milei-durante-el-debate-nid09102023/" }
                     ]
                   }
@@ -1180,7 +1264,8 @@ questions.push(
             title: "El Estado regula tu cuerpo para protegerte",
             detail: "Si pedís prohibir la compraventa de órganos, aceptás que hay contratos tan abusivos que requieren límite público. Eso choca con la idea de que todo pacto privado es suficiente.",
             sources: [
-              { label: "OMS principios", url: "https://www.who.int/publications/i/item/WHO-HTP-EHT-CPR-2010.01" }
+              { label: "OPS/OMS trasplantes", url: "https://www.paho.org/es/temas/donacion-trasplantes" },
+              { label: "OMS principios rectores", url: "https://apps.who.int/gb/ebwha/pdf_files/WHA63/A63_R22-sp.pdf", type: "pdf" }
             ]
           }
         ]
@@ -1314,8 +1399,9 @@ questions.push(
         checks: [
           {
             id: "chant_no_malvinas_cross",
+            kind: "reconsider",
             anyAnswers: ["malvinas_yes"],
-            title: "Patriotismo sin folklore",
+            title: "Consistente, pero revisá el cruce político",
             detail: "Esta respuesta puede ser consistente, pero si antes activaste orgullo fuerte por Malvinas, el mapa te va a seguir cruzando con cómo se defienden esos símbolos en la práctica política.",
             sources: [
               { label: "LA NACION Thatcher", url: "https://www.lanacion.com.ar/politica/debate-2023-que-dijo-javier-milei-sobre-margaret-thatcher-y-las-islas-malvinas-nid13112023/" }
@@ -1354,9 +1440,9 @@ questions.push(
                     id: "china_state_private_blur",
                     anyBeliefs: ["private_contracts", "capital_without_flag"],
                     title: "Frontera cómoda entre Estado y privados",
-                    detail: "En comercio exterior, infraestructura, permisos, divisas, embajadas y reglas aduaneras, el Estado nunca desaparece del todo. Decir 'solo privados' simplifica una relación que depende de marcos públicos.",
+                    detail: "Aunque digas que comercian privados, ese comercio usa reglas públicas: aduana, permisos, moneda, tratados, bancos y embajadas. El Estado no desaparece cuando el negocio conviene.",
                     sources: [
-                      { label: "CSIS China Argentina", url: "https://www.csis.org/analysis/evolution-chinese-engagement-argentina-under-javier-milei" },
+                      { label: "Bloomberg Línea", url: "https://www.bloomberglinea.com/latinoamerica/argentina/no-se-frenara-el-comercio-del-sector-privado-con-brasil-y-china-dice-javier-milei/?outputType=amp" },
                       { label: "Forbes Argentina", url: "https://www.forbesargentina.com/negocios/los-negocios-mira-china-argentina-como-esta-relacion-milei-n74755" }
                     ]
                   }
