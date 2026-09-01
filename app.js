@@ -1,8 +1,8 @@
-const STORAGE_KEY = "libertometro-state-v12";
+const STORAGE_KEY = "libertometro-state-v13";
 
 const beliefs = [
   { id: "no_state", text: "El Estado no debería existir." },
-  { id: "taxes_theft", text: "Los impuestos son robo." },
+  { id: "taxes_theft", text: "Todos los impuestos son robo." },
   { id: "poor_choice", text: "El pobre es pobre porque quiere." },
   { id: "anti_welfare", text: "No me gustan los planeros." },
   { id: "market_self", text: "La economía se regula sola." },
@@ -15,7 +15,7 @@ const beliefs = [
   { id: "no_price_controls", text: "No debe haber controles de precios ni regulación de tarifas." },
   { id: "no_environment", text: "Las regulaciones ambientales son trabas al progreso." },
   { id: "foreign_resources", text: "Si una empresa extranjera compra recursos naturales, es libertad de mercado." },
-  { id: "meritocracy", text: "La meritocracia alcanza si nadie molesta." },
+  { id: "meritocracy", text: "Absolutamente todos tenemos las mismas oportunidades. Meritocracia team." },
   { id: "private_security", text: "La seguridad privada sería más eficiente que la pública." },
   { id: "private_justice", text: "Los conflictos deberían resolverse por árbitros privados." },
   { id: "education_market", text: "La educación debería competir como cualquier producto." },
@@ -30,6 +30,8 @@ const beliefs = [
   { id: "climate_socialist_lie", text: "El calentamiento global es otra mentira del socialismo." },
   { id: "future_debt_theft", text: "Si el gobierno libertario necesita pedir deuda porque los K se robaron todo, está bien." },
   { id: "disappeared_number_indignation", text: "Me indigna que se use la cifra de 30.000 desaparecidos como relato político." },
+  { id: "selfish_indifference", text: "A mí no me importa lo que le pase a otros mientras no me jodan a mí." },
+  { id: "abortion_birthrate_belief", text: "Aborto legal: ahora lo estamos pagando con caídas en la tasa de natalidad." },
   { id: "anti_communism", text: "Me cae mal el comunismo y no habría que negociar con comunistas." },
   { id: "milei_voter", text: "Acompaño a Milei aunque cambie de postura, porque el rumbo importa más." }
 ];
@@ -65,6 +67,7 @@ function makeCorruptionReply(scope) {
             checks: [
               {
                 id: `${scope}_official_inflation_data`,
+                anyBeliefs: ["presidential_cabinet", "milei_voter"],
                 title: "Los datos oficiales no dicen cero",
                 detail: "Según INDEC, el IPC nacional de julio de 2026 fue 2,1% mensual. Tomando el índice de noviembre de 2023 en 2816,06 y julio de 2026 en 12076,39, la variación acumulada aproximada es 328,8%, no cero. En tipo de cambio, el BCRA informó A3500 a $364,41 el 7/12/2023 y sus indicadores principales mostraban $1492,1790 el 11/08/2026, una suba aproximada de 309,5%.",
                 sources: [
@@ -140,7 +143,7 @@ const questions = [
                             id: "street_tutorial_quality",
                             anyBeliefs: ["market_self", "no_state"],
                             title: "Control de calidad ausente",
-                            detail: "Si la calle queda mal y alguien se lastima, volvés a necesitar inspección, responsabilidad civil, justicia y reglas compartidas. El tutorial no reemplaza una obra pública controlada."
+                            detail: "Si la calle queda mal y alguien se lastima, volvés a necesitar inspección, responsabilidad civil, justicia y reglas compartidas. El tutorial no reemplaza una obra pública controlada. Imaginate si fuera un puente lo que armaste con tutoriales."
                           }
                         ]
                       },
@@ -179,7 +182,7 @@ const questions = [
                 checks: [
                   {
                     id: "street_toll",
-                    anyBeliefs: ["private_roads", "capital_without_flag"],
+                    anyBeliefs: ["selfish_indifference"],
                     title: "Libertad de circular, pero con molinete",
                     detail: "Privatizar cada tramo vuelve la movilidad una suma de permisos. Tu libertad de circular dependería de cuánto puedas pagar por atravesar barrios ajenos."
                   }
@@ -277,7 +280,10 @@ const questions = [
             id: "flag_symbol_state",
             anyBeliefs: ["no_state", "private_contracts", "capital_without_flag"],
             title: "Símbolo común sin comunidad política",
-            detail: "Defender un símbolo nacional implica aceptar una regla colectiva sobre un espacio común. Eso contradice la idea de que todo debería decidirse solo por pactos privados.",
+            detail: "Defender un símbolo nacional implica aceptar una regla colectiva sobre un espacio común. Eso contradice la idea de que todo debería decidirse solo por pactos privados. Y ni hablar de Milei agitando una bandera de otro país en esta localización, como se ve en la fuente del 14 de noviembre de 2023.",
+            sources: [
+              { label: "AJN: bandera en el Monumento, 14/11/2023", url: "https://x.com/AgenciaAJN/status/1724570875976896514?utm_source=chatgpt.com" }
+            ],
             replies: [
               {
                 label: "Debería haber una norma de uso",
@@ -297,7 +303,7 @@ const questions = [
                 checks: [
                   {
                     id: "flag_owner_sale",
-                    anyBeliefs: ["privatize_all", "state_bad_manager"],
+                    anyAnswers: ["flag_own"],
                     title: "Patrimonio vendible",
                     detail: "Si el monumento se privatiza, el dueño podría alquilarlo para cualquier bandera o campaña. El símbolo deja de ser nacional y pasa a ser inventario."
                   }
@@ -316,65 +322,6 @@ const questions = [
             anyAnswers: ["malvinas_yes"],
             title: "Patriotismo selectivo",
             detail: "Antes defendiste soberanía nacional, pero ahora los símbolos nacionales te dan igual. La bandera aparece o desaparece según convenga al argumento."
-          }
-        ]
-      }
-    ]
-  },
-  {
-    id: "hospital",
-    title: "Hospital de urgencia",
-    prompt: "Si tenés un accidente y no tenés plata encima, ¿debería atenderte un hospital igual?",
-    context: "La emergencia médica es una prueba dura para cualquier teoría de mercado puro.",
-    answers: [
-      {
-        label: "Sí, primero que me salven",
-        value: "hospital_yes",
-        checks: [
-          {
-            id: "hospital_private_health",
-            anyBeliefs: ["private_health", "taxes_theft", "no_subsidies"],
-            title: "Derecho de atención financiado por otros",
-            detail: "Pedir atención inmediata sin pago previo requiere infraestructura, guardias y medicamentos ya financiados. Si todo impuesto o subsidio es robo, esa red no aparece mágicamente.",
-            replies: [
-              {
-                label: "Después pago la cuenta",
-                value: "hospital_pay_later",
-                checks: [
-                  {
-                    id: "hospital_credit",
-                    anyBeliefs: ["private_contracts", "poor_choice"],
-                    title: "Contrato imposible en una camilla",
-                    detail: "Una persona inconsciente no negocia precio, plazo ni cobertura. El contrato privado llega tarde cuando la urgencia ya decidió por vos. Igual que en Estados Unidos, una operación de emergencia puede costarte tu casa."
-                  }
-                ]
-              },
-              {
-                label: "Que me ayude una colecta",
-                value: "hospital_crowdfunding",
-                checks: [
-                  {
-                    id: "hospital_crowdfunding",
-                    anyBeliefs: ["meritocracy", "anti_welfare", "no_subsidies"],
-                    title: "Plan social con estética de app",
-                    detail: "Una colecta para sobrevivir también redistribuye recursos. Cambia la plataforma, no el principio de que alguien necesita ayuda ajena para no morir."
-                  }
-                ]
-              }
-            ]
-          }
-        ]
-      },
-      {
-        label: "No, si no pago no me atienden",
-        value: "hospital_no",
-        checks: [
-          {
-            id: "hospital_no_cost",
-            kind: "reconsider",
-            anyBeliefs: ["meritocracy"],
-            title: "Esto se alinea con tus creencias",
-            detail: "Esto puede alinearse con una idea extrema de responsabilidad individual. Te invitamos a reconsiderar: la salud no espera a que el mercado evalúe tu trayectoria. Una mala noche puede borrar cualquier mérito acumulado."
           }
         ]
       }
@@ -419,8 +366,7 @@ const questions = [
                     detail: "Una beca también financia a alguien que no puede pagar. Si la ayuda es aceptable cuando decide una marca, el problema no era la ayuda sino quién la administra."
                   }
                 ]
-              },
-              makeCorruptionReply("university")
+              }
             ]
           }
         ]
@@ -431,9 +377,9 @@ const questions = [
         checks: [
           {
             id: "university_no_training",
-            anyAnswers: ["street_holes.learn_paving", "hospital_yes"],
+            anyAnswers: ["street_holes.learn_paving"],
             title: "Experiencia justo cuando no te toca",
-            detail: "Antes pediste resolver calles o salud. En esos casos, improvisar con experiencia suena menos simpático cuando tu cuerpo o tu casa quedan en riesgo."
+            detail: "Antes pediste resolver calles. Improvisar con experiencia suena menos simpático cuando tu auto, tu cuerpo o un puente quedan en riesgo."
           }
         ]
       }
@@ -461,9 +407,9 @@ const questions = [
                 checks: [
                   {
                     id: "fire_insurance_neighbor",
-                    anyBeliefs: ["poor_choice", "private_contracts", "no_external_effects"],
+                    anyBeliefs: ["private_contracts", "market_self", "no_state", "no_price_controls", "no_external_effects"],
                     title: "El fuego no chequea pólizas",
-                    detail: "Aunque vos tengas seguro, el incendio del vecino sin cobertura también puede quemar tu casa. No podés sostener que nada de lo ajeno debe afectarte y a la vez aceptar un sistema donde la falta de cobertura del otro puede destruir tu casa."
+                    detail: "Una póliza privada no tiene obligación natural de cubrirlo todo, ni siquiera parcialmente, si nadie regula condiciones mínimas. Y la competencia que imaginás para mejorar el servicio puede concentrarse, cartelizar precios o diseñar letra chica a favor del rubro antes que del cliente. Sin Estado que limite monopolios o abusos, tu protección pasa a ser cuestión de suerte. Capaz justo agarrás una promo."
                   }
                 ]
               },
@@ -547,9 +493,9 @@ const questions = [
         checks: [
           {
             id: "inspection_no",
-            anyAnswers: ["hospital_yes"],
-            title: "Elegís después de enfermarte",
-            detail: "Si el remedio era falso, tu libertad de elegir aparece cuando ya necesitás el hospital que antes pediste disponible."
+            anyBeliefs: ["selfish_indifference"],
+            title: "Mientras no te toque a vos",
+            detail: "Si no te importa que otros compren remedios truchos o comida contaminada mientras no te jodan a vos, el criterio se rompe el día que el daño llega a tu mesa, a tu familia o a alguien que no tuvo forma de saber antes de enfermarse."
           }
         ]
       }
@@ -613,7 +559,7 @@ const questions = [
           },
           {
             id: "environment_no_hospital",
-            anyAnswers: ["hospital_yes"],
+            anyBeliefs: ["private_health", "taxes_theft"],
             title: "Enfermar para después atender",
             detail: "Aceptar contaminación rentable y pedir salud disponible después traslada el costo ambiental al sistema sanitario que decías no querer financiar."
           }
@@ -671,7 +617,7 @@ const questions = [
         checks: [
           {
             id: "labor_no_contract",
-            anyAnswers: ["hospital_yes", "emergency_help_yes"],
+            anyAnswers: ["emergency_help_yes"],
             title: "La urgencia también firma mal",
             detail: "Antes pediste ayuda cuando no podías negociar. En el trabajo, la necesidad también puede forzar acuerdos que no son realmente libres."
           }
@@ -730,10 +676,9 @@ const questions = [
         checks: [
           {
             id: "utility_no_cap",
-            anyBeliefs: ["no_external_effects"],
-            anyAnswers: ["environment_stop_yes"],
+            anyBeliefs: ["selfish_indifference", "no_external_effects"],
             title: "Agua limpia pero inaccesible",
-            detail: "Antes querías proteger el agua como recurso. Sin acceso económico, el recurso puede estar limpio y aun así quedar fuera de la vida de mucha gente. Si no querés que decisiones ajenas te afecten, una tarifa monopólica sin límite es exactamente una decisión ajena afectándote."
+            detail: "Si una empresa única triplica la tarifa, no es solo 'que pague quien pueda': es una decisión ajena condicionando tu vida diaria. Si además marcaste que no te importa lo que le pase a otros mientras no te jodan, esta respuesta muestra el límite: el monopolio te puede joder a vos también."
           }
         ]
       }
@@ -765,7 +710,7 @@ const questions = [
             id: "foreigners_contract",
             anyBeliefs: ["capital_without_flag", "private_contracts", "foreign_resources"],
             title: "Fronteras para personas, libertad para capitales",
-            detail: "Si el capital extranjero puede comprar recursos libremente, pero una persona que trabaja acá no puede usar servicios comunes, la libertad de mercado queda más amable con empresas que con humanos.",
+            detail: "Si el capital extranjero puede comprar recursos libremente, pero una persona que trabaja acá no puede usar servicios comunes, la libertad de mercado queda más amable con empresas que con humanos. Además, el extranjero que vive en el país ya paga impuestos al consumir, como el IVA; y si trabaja formalmente, también aporta como vos.",
             replies: [
               {
                 label: "El país primero",
@@ -780,12 +725,6 @@ const questions = [
                 ]
               }
             ]
-          },
-          {
-            id: "foreigners_hospital_double",
-            anyAnswers: ["hospital_yes"],
-            title: "Universal para mí, excluyente para otros",
-            detail: "Antes pediste atención de urgencia aunque no pudieras pagar. La universalidad aparece para vos y desaparece cuando el paciente tiene otro pasaporte."
           }
         ]
       }
@@ -842,7 +781,7 @@ const questions = [
         checks: [
           {
             id: "crime_self_help",
-            anyBeliefs: ["private_security", "no_external_effects"],
+            anyBeliefs: ["private_security", "no_external_effects", "selfish_indifference"],
             title: "Privatizar la fuerza escala rápido",
             detail: "Cuando cada cual ejecuta su propia justicia, gana quien tiene más armas, contactos o dinero. La propiedad se vuelve fuerza, no derecho. Si nada de lo que hagan los demás debería afectarte, aceptar justicias privadas armadas es abrir la puerta a que la fuerza ajena decida sobre tu vida.",
             sources: [
@@ -883,7 +822,7 @@ const questions = [
                 checks: [
                   {
                     id: "safety_net_bureaucracy",
-                    anyBeliefs: ["public_workers", "state_bad_manager"],
+                    anyBeliefs: ["public_workers", "state_bad_manager", "no_subsidies", "poor_choice", "taxes_theft"],
                     title: "Burocracia necesaria",
                     detail: "Comprobar casos exige trabajadores, criterios, expedientes y controles. El sistema que querías achicar vuelve para separar necesidad real de fraude."
                   }
@@ -900,11 +839,18 @@ const questions = [
         checks: [
           {
             id: "safety_net_no",
-            anyAnswers: ["hospital_yes", "emergency_help_yes"],
+            anyAnswers: ["emergency_help_yes"],
             title: "Solidaridad de corto plazo",
             detail: "Pediste ayuda en emergencias inmediatas, pero negás la emergencia lenta de la vejez, discapacidad o enfermedad crónica."
           }
-        ]
+        ],
+        note: {
+          title: "Sin inconsistencia inmediata",
+          body: "No todo el mundo es vago o poco inteligente. A veces aparecen enfermedades en la familia, despidos, accidentes o problemas reales que dejan a una persona fuera del sistema en edad adulta. La empatía es un don: no te prives de él.",
+          switchText: "¿Te interesa cambiar a",
+          switchLabel: "Sí, una red mínima",
+          switchOptionValue: "safety_net_yes"
+        }
       }
     ]
   },
@@ -932,14 +878,11 @@ const questions = [
               {
                 label: "El Estado no puede hacerse cargo ni entrometerse",
                 value: "state_out_gestation",
-                checks: [
-                  {
-                    id: "gestation_state_out",
-                    anyBeliefs: ["no_state", "private_health"],
-                    title: "Cuidado sin responsable",
-                    detail: "Si la vida en gestación debe cuidarse, pero el Estado no puede coordinar estudios ni garantizar acceso, entonces el cuidado depende de que cada familia pueda pagar a tiempo. La obligación moral queda sin herramienta práctica."
-                  }
-                ]
+                checks: [],
+                note: {
+                  title: "Sin inconsistencia inmediata",
+                  body: "A considerar: incluso con trabajo bien pago y autosustentable, puede pasar que la vida de un hijo en camino corra peligro por falta de un estudio o tratamiento que no alcanzás a pagar en privado. Por remoto que parezca, en millones de personas de un país esto ocurre todo el tiempo, y son personas reales las que sufren."
+                }
               },
               {
                 label: "Pero por culpa del aborto ahora hay baja natalidad",
@@ -947,6 +890,7 @@ const questions = [
                 checks: [
                   {
                     id: "gestation_birthrate_data",
+                    anyBeliefs: ["abortion_birthrate_belief"],
                     title: "Causalidad acomodada",
                     detail: "La caída de nacimientos en Argentina viene desde 2014, varios años antes de la Ley IVE de 2020. Las explicaciones disponibles hablan de un fenómeno multicausal: economía, trabajo, vivienda, cuidados, educación, anticoncepción y proyectos de vida. Usar solo el aborto como causa tapa el resto del sistema material que decías que el Estado no debía mirar.",
                     sources: [
@@ -964,7 +908,11 @@ const questions = [
       {
         label: "No, el Estado no debería meterse",
         value: "gestation_state_no",
-        checks: []
+        checks: [],
+        note: {
+          title: "Sin inconsistencia inmediata",
+          body: "A considerar: incluso con trabajo bien pago y autosustentable, puede pasar que la vida de un hijo en camino corra peligro por falta de un estudio o tratamiento que no alcanzás a pagar en privado. Por remoto que parezca, en millones de personas de un país esto ocurre todo el tiempo, y son personas reales las que sufren."
+        }
       },
       {
         label: "No me va ni me viene este tema puntual",
@@ -1012,8 +960,9 @@ questions.push(
                     id: "same_old_side_change",
                     anyBeliefs: ["presidential_cabinet", "milei_voter"],
                     title: "La casta cambia de nombre cuando firma",
-                    detail: "Si el criterio era que los nombres de siempre no debían manejar el poder, que ahora estén de tu lado no resuelve la contradicción: solo cambia el color del cartel.",
+                    detail: "Si el criterio era que los nombres de siempre no debían manejar el poder, que ahora estén de tu lado no resuelve la contradicción: solo cambia el color del cartel. Sin ir muy lejos, Patricia Bullrich pasó por la Juventud Peronista, el peronismo menemista, La Alianza, Unión por Todos, Coalición Cívica/ARI, PRO, Cambiemos/Juntos por el Cambio y finalmente La Libertad Avanza.",
                     sources: [
+                      { label: "Chequeado: Patricia Bullrich", url: "https://chequeado.com/personajes/quien-es-patricia-bullrich/" },
                       { label: "Mesa política Infobae", url: "https://www.infobae.com/politica/2026/07/02/nueva-era-para-milei-nace-un-gobierno-abrazado-al-sistema-con-karina-como-el-jefe-de-casi-todo/" },
                       { label: "Reunión oficial", url: "https://www.argentina.gob.ar/node/497027" }
                     ]
@@ -1075,6 +1024,7 @@ questions.push(
             title: "La excepción era para los tuyos",
             detail: "Si endeudar futuras generaciones está mal siempre, choca con haber marcado que está bien cuando el gobierno libertario pide deuda porque los K se robaron todo. Ahí el principio no era contra la deuda: era permiso para el equipo propio.",
             sources: [
+              { label: "Milei: deuda inmoral", url: "https://www.youtube.com/watch?v=SHsHX8gph-M" },
               { label: "Casa Rosada: deuda como impuestos futuros", url: "https://www.casarosada.gob.ar/informacion/discursos/51058-palabras-del-presidente-de-la-nacion-javier-milei-ante-el-consejo-interamericano-de-comercio-y-produccion-cicyp-2025" },
               { label: "Argentina: acuerdo FMI USD 20.000 millones", url: "https://www.argentina.gob.ar/node/462281" },
               { label: "Chequeado: deuda en la gestión Milei", url: "https://chequeado.com/el-explicador/cae-la-deuda-total-en-la-gestion-de-javier-milei-pero-aumenta-el-endeudamiento-en-dolares/" },
@@ -1089,11 +1039,13 @@ questions.push(
                     id: "debt_rollover_excuse",
                     anyBeliefs: ["future_debt_theft", "taxes_theft"],
                     title: "La cuenta sigue viajando al futuro",
-                    detail: "Cambiar una deuda por otra puede ordenar vencimientos, pero no borra el punto central: alguien en el futuro queda pagando decisiones que no tomó. Si los impuestos son robo, los impuestos futuros tampoco se vuelven libertad porque los firma Caputo.",
+                    detail: "El argumento de 'pedir para pagar deuda vieja' queda raro cuando el antecedente histórico es que en 2005/2006 se canceló anticipadamente la deuda con el FMI por alrededor de 9.810 millones de dólares. Hasta Milei lo reconoció en archivo. Recomendación: leé las fuentes antes de convertir cada préstamo nuevo en herencia inevitable.",
                     sources: [
                       { label: "Argentina: acuerdo FMI USD 20.000 millones", url: "https://www.argentina.gob.ar/node/462281" },
-                      { label: "Chequeado: deuda en la gestión Milei", url: "https://chequeado.com/el-explicador/cae-la-deuda-total-en-la-gestion-de-javier-milei-pero-aumenta-el-endeudamiento-en-dolares/" },
-                      { label: "Casa Rosada: deuda como impuestos futuros", url: "https://www.casarosada.gob.ar/informacion/discursos/51058-palabras-del-presidente-de-la-nacion-javier-milei-ante-el-consejo-interamericano-de-comercio-y-produccion-cicyp-2025" }
+                      { label: "Casa Rosada: plan de desendeudamiento FMI 2005", url: "https://www.casarosada.gob.ar/informacion/archivo/24862-blank-411" },
+                      { label: "Cuenta de Inversión 2005", url: "https://www.economia.gob.ar/hacienda/cgn/cuenta/2005/sdp/anexoj.htm" },
+                      { label: "Milei reconoce pago de Néstor", url: "https://www.youtube.com/shorts/vrqh_Y6sCf4" },
+                      { label: "Milei: deuda inmoral", url: "https://www.youtube.com/watch?v=SHsHX8gph-M" }
                     ]
                   }
                 ]
@@ -1114,6 +1066,7 @@ questions.push(
             title: "Impuestos futuros, pero con pulsera libertaria",
             detail: "Marcaste que está bien pedir deuda si la pide el gobierno libertario por culpa de los K. Pero Milei mismo definió la deuda como impuestos futuros: si los impuestos son robo, estás defendiendo robo futuro cuando lo firma tu presidente. Además, el gobierno anunció oficialmente un acuerdo con el FMI por USD 20.000 millones.",
             sources: [
+              { label: "Milei: deuda inmoral", url: "https://www.youtube.com/watch?v=SHsHX8gph-M" },
               { label: "Casa Rosada: deuda como impuestos futuros", url: "https://www.casarosada.gob.ar/informacion/discursos/51058-palabras-del-presidente-de-la-nacion-javier-milei-ante-el-consejo-interamericano-de-comercio-y-produccion-cicyp-2025" },
               { label: "Argentina: acuerdo FMI USD 20.000 millones", url: "https://www.argentina.gob.ar/node/462281" },
               { label: "Chequeado: deuda en la gestión Milei", url: "https://chequeado.com/el-explicador/cae-la-deuda-total-en-la-gestion-de-javier-milei-pero-aumenta-el-endeudamiento-en-dolares/" }
@@ -1157,7 +1110,7 @@ questions.push(
             id: "climate_policy_denial",
             anyBeliefs: ["climate_socialist_lie", "no_environment", "market_self", "no_state"],
             title: "La mentira socialista te inundó el living",
-            detail: "Si marcaste que el calentamiento global es una mentira socialista o que la regulación ambiental sobra, pedir prevención pública cuando llegan sequías, olas de calor o inundaciones contradice esa negación inicial. La NASA en español explica que el calentamiento actual tiene evidencia medible y que la actividad humana es una causa central.",
+            detail: "Si marcaste que el calentamiento global es una mentira socialista o que la regulación ambiental sobra, pedir prevención pública cuando llegan sequías, olas de calor o inundaciones contradice esa negación inicial. La NASA en español, ente de bandera de Estados Unidos tan amado por Milei, explica que el calentamiento actual tiene evidencia medible y que la actividad humana es una causa central.",
             sources: [
               { label: "NASA Ciencia: evidencia", url: "https://ciencia.nasa.gov/cambio-climatico/evidencia/" },
               { label: "NASA Ciencia: causas", url: "https://ciencia.nasa.gov/cambio-climatico/causas/" },
@@ -1230,11 +1183,11 @@ questions.push(
         checks: [
           {
             id: "organ_market_coercion",
-            kind: "reconsider",
-            anyBeliefs: ["private_contracts", "market_self", "poor_choice"],
-            title: "Esto se alinea con tus creencias",
-            detail: "Esto se alinea con tu idea de mercado y contratos entre privados. Te invitamos a reconsiderar: cuando alguien vende un riñón por hambre, la necesidad económica pesa más que la firma. La libertad formal puede esconder desesperación material.",
+            anyBeliefs: ["abortion_birthrate_belief"],
+            title: "Tu cuerpo decide solo cuando conviene al mercado",
+            detail: "Si defendés que una persona pobre venda un riñón porque es su cuerpo y su decisión, pero marcaste que el aborto legal se paga con caída de natalidad, la autonomía corporal aparece para vender partes del cuerpo y desaparece cuando una mujer decide sobre un embarazo. El criterio no es 'su cuerpo': es mercado sí, derechos no.",
             sources: [
+              { label: "Milei y natalidad", url: "https://www.youtube.com/watch?v=woL9GrXmvHs" },
               { label: "OPS/OMS trasplantes", url: "https://www.paho.org/es/temas/donacion-trasplantes" },
               { label: "INCUCAI rechazo", url: "https://www.infobae.com/salud/2023/05/04/el-director-del-incucai-cruzo-a-milei-la-venta-de-organos-es-una-postura-disparatada-no-es-viable-y-va-en-contra-del-consenso-global/" },
               { label: "Archivo Milei órganos", url: "https://www.pagina12.com.ar/426307-javier-milei-a-favor-de-la-venta-de-organos-es-un-mercado-ma" }
@@ -1351,10 +1304,9 @@ questions.push(
         checks: [
           {
             id: "disappeared_number_first",
-            kind: "reconsider",
-            anyBeliefs: ["disappeared_number_indignation", "no_state"],
-            title: "Esto se alinea con tus creencias",
-            detail: "Esto se alinea con tus creencias. Te invitamos a leer y reconsiderar: poner primero la discusión numérica desplaza el hecho más grave, un Estado usando poder público para secuestrar, torturar y desaparecer personas. Si desconfiás del Estado, este debería ser el caso límite, incluso antes de discutir la cifra.",
+            anyBeliefs: ["selfish_indifference"],
+            title: "La cifra importa distinto si eras vos",
+            detail: "Poner primero la discusión numérica desplaza el hecho más grave: un Estado usando poder público para secuestrar, torturar y desaparecer personas. Si hubiesen sido solo 10 personas y una de ellas eras vos, tu regla de 'mientras no me jodan a mí' ya no te serviría para mirar para otro lado.",
             sources: [
               { label: "Short debate", url: "https://www.youtube.com/shorts/FuQZxp6wTVQ" },
               { label: "TN debate", url: "https://tn.com.ar/politica/2023/10/01/la-polemica-definicion-de-javier-milei-sobre-el-numero-de-desaparecidos-durante-la-dictadura-no-son-30000/" },
@@ -1430,7 +1382,7 @@ questions.push(
         checks: [
           {
             id: "china_private_trade_cross",
-            anyBeliefs: ["anti_communism", "private_contracts", "capital_without_flag"],
+            anyBeliefs: ["anti_communism"],
             title: "Moral anti-comunista, caja pro-comercio",
             detail: "Si marcaste que no habría que negociar con comunistas, pero aceptás comercio privado con China, la moral deja de ser límite cuando aparece negocio. Es el choque entre archivo de campaña y pragmatismo de gobierno.",
             sources: [
@@ -1447,7 +1399,7 @@ questions.push(
                     id: "china_state_private_blur",
                     anyBeliefs: ["private_contracts", "capital_without_flag"],
                     title: "Frontera cómoda entre Estado y privados",
-                    detail: "Aunque digas que comercian privados, ese comercio usa reglas públicas: aduana, permisos, moneda, tratados, bancos y embajadas. El Estado no desaparece cuando el negocio conviene.",
+                    detail: "Aunque digas que comercian privados, ese comercio usa reglas públicas: aduana, permisos, moneda, tratados, bancos y embajadas. El Estado no desaparece cuando el negocio conviene. A menos que seas narco. Ahí te viene de lujo.",
                     sources: [
                       { label: "Bloomberg Línea", url: "https://www.bloomberglinea.com/latinoamerica/argentina/no-se-frenara-el-comercio-del-sector-privado-con-brasil-y-china-dice-javier-milei/?outputType=amp" },
                       { label: "Forbes Argentina", url: "https://www.forbesargentina.com/negocios/los-negocios-mira-china-argentina-como-esta-relacion-milei-n74755" }
@@ -1481,12 +1433,6 @@ questions.push(
 );
 
 const globalChecks = [
-  {
-    id: "global_public_for_me",
-    allAnswers: ["hospital_yes", "foreigners_no"],
-    title: "Universalidad con documento propio",
-    detail: "Tus respuestas construyen servicios públicos para cuando vos los necesitás y barreras cuando los necesita otra persona."
-  },
   {
     id: "global_state_symbol_property",
     anyAnswers: ["malvinas_yes", "flag_own"],
@@ -1530,6 +1476,7 @@ function createFreshState() {
   return {
     stage: "survey",
     selectedBeliefs: [],
+    initialBeliefs: [],
     usedQuestions: [],
     currentQuestionId: null,
     nodes: [],
@@ -1633,6 +1580,7 @@ function startNewRun() {
   state = createFreshState();
   state.stage = "play";
   state.selectedBeliefs = selected;
+  state.initialBeliefs = selected;
   showApp();
   pickNextQuestion();
 }
@@ -1666,8 +1614,8 @@ function showApp() {
 function pickNextQuestion() {
   let remaining = questions.filter((question) => !state.usedQuestions.includes(question.id));
   if (!remaining.length) {
-    state.usedQuestions = [];
-    remaining = [...questions];
+    finishRun();
+    return;
   }
 
   const question = remaining[Math.floor(Math.random() * remaining.length)];
@@ -1683,6 +1631,37 @@ function pickNextQuestion() {
       body: "",
       depth: 0,
       options: question.answers
+    }
+  ];
+  saveState();
+  renderAll();
+}
+
+function finishRun() {
+  const initialBeliefs = state.initialBeliefs && state.initialBeliefs.length
+    ? state.initialBeliefs
+    : state.selectedBeliefs;
+  const initialSet = new Set(initialBeliefs);
+  const selectedSet = new Set(state.selectedBeliefs);
+  const changed = initialBeliefs.length !== state.selectedBeliefs.length
+    || initialBeliefs.some((id) => !selectedSet.has(id))
+    || state.selectedBeliefs.some((id) => !initialSet.has(id));
+  const removedCount = Math.max(0, initialBeliefs.length - state.selectedBeliefs.length);
+  const reduction = initialBeliefs.length ? Math.round((removedCount / initialBeliefs.length) * 100) : 0;
+  const libertarianPercent = Math.round((state.selectedBeliefs.length / beliefs.length) * 100);
+
+  state.currentQuestionId = null;
+  state.pendingCaptcha = null;
+  state.nodes = [
+    {
+      id: makeId("f"),
+      type: "finish",
+      title: changed ? "Recorrido terminado" : "Blindaje completado",
+      body: changed
+        ? `Felicitaciones: llegaste al final con ${libertarianPercent}% de libertarismo activo y redujiste ${reduction}% de las creencias que habías marcado al inicio.`
+        : "Lamentamos que su seguridad y ego se basen enteramente en sus creencias actuales. No fue nuestra intención intentar desestabilizarle. Mejor suerte la próxima.",
+      depth: 0,
+      options: []
     }
   ];
   saveState();
@@ -1739,7 +1718,11 @@ function selectOption(nodeId, optionIndex) {
       title: option.note?.title || "Sin inconsistencia inmediata",
       body: option.note?.body || "Esta respuesta no chocó con tus marcas iniciales ni con el historial disponible. La próxima pregunta puede cruzarla.",
       depth: answerNode.depth + 1,
-      parentId: answerNode.id
+      parentId: answerNode.id,
+      switchNodeId: option.note?.switchOptionValue ? nodeId : null,
+      switchOptionValue: option.note?.switchOptionValue || null,
+      switchText: option.note?.switchText || "",
+      switchLabel: option.note?.switchLabel || ""
     });
   }
 
@@ -2203,6 +2186,12 @@ function renderMap() {
     });
   });
 
+  dom.conceptMap.querySelectorAll("button[data-switch-node]").forEach((button) => {
+    button.addEventListener("click", () => {
+      switchAnswer(button.dataset.switchNode, button.dataset.switchValue);
+    });
+  });
+
   const inlineNextQuestion = dom.conceptMap.querySelector("#inline-next-question");
   if (inlineNextQuestion) {
     inlineNextQuestion.addEventListener("click", pickNextQuestion);
@@ -2210,6 +2199,16 @@ function renderMap() {
 }
 
 function renderNodeBody(node) {
+  if (node.type === "note" && node.switchNodeId && node.switchOptionValue) {
+    return `
+      ${node.body ? `<p>${node.body}</p>` : ""}
+      <div class="node-actions note-switch">
+        <span>${node.switchText}</span>
+        <button type="button" data-switch-node="${node.switchNodeId}" data-switch-value="${node.switchOptionValue}">${node.switchLabel}</button>
+      </div>
+    `;
+  }
+
   if ((node.type === "error" || node.type === "global-error") && Array.isArray(node.sections) && node.sections.length > 1) {
     return `
       <div class="inconsistency-sections">
@@ -2224,6 +2223,14 @@ function renderNodeBody(node) {
   }
 
   return node.body ? `<p>${node.body}</p>` : "";
+}
+
+function switchAnswer(nodeId, optionValue) {
+  const node = state.nodes.find((item) => item.id === nodeId);
+  if (!node || !Array.isArray(node.options)) return;
+  const optionIndex = node.options.findIndex((option) => option.value === optionValue);
+  if (optionIndex < 0) return;
+  selectOption(nodeId, optionIndex);
 }
 
 function hasOpenThreadOptions() {
@@ -2318,19 +2325,15 @@ function renderCriteria(node) {
     <div class="criteria-box ${isReconsider ? "reconsider-box" : ""}">
       <span>${isReconsider ? "Reconsiderar" : "Choca con"}</span>
       <ul>
-        ${criteria.map((item) => renderCriteriaItem(item, isReconsider)).join("")}
+        ${criteria.map((item) => renderCriteriaItem(item)).join("")}
       </ul>
     </div>
   `;
 }
 
-function renderCriteriaItem(item, readonly = false) {
+function renderCriteriaItem(item) {
   if (item.type !== "belief") {
     return `<li class="criteria-row criteria-answer"><span>${item.label}</span></li>`;
-  }
-
-  if (readonly) {
-    return `<li class="criteria-row reconsider-item"><span>${item.label}</span></li>`;
   }
 
   const isActive = state.selectedBeliefs.includes(item.id);
@@ -2391,7 +2394,8 @@ function getNodeEyebrow(type) {
     error: "Inconsistencia",
     "global-error": "Cruce histórico",
     reconsider: "Consistente",
-    note: "Observación"
+    note: "Observación",
+    finish: "Resultado"
   };
   return labels[type] || "Nodo";
 }
