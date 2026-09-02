@@ -1,4 +1,4 @@
-const STORAGE_KEY = "libertometro-state-v14";
+const STORAGE_KEY = "libertometro-state-v15";
 
 const beliefs = [
   { id: "no_state", text: "El Estado no debería existir." },
@@ -198,10 +198,9 @@ const questions = [
         checks: [
           {
             id: "street_no_emergency",
-            kind: "reconsider",
-            anyBeliefs: ["meritocracy", "poor_choice"],
+            anyBeliefs: ["selfish_indifference"],
             title: "Esto se alinea con tus creencias",
-            detail: "Esto se alinea con una mirada dura de mérito individual. Te invitamos a reconsiderar: cuando el pozo retrasa una ambulancia o rompe una silla de ruedas, el resultado ya no depende del mérito sino de infraestructura compartida."
+            detail: "Esto se alinea con una mirada dura de mérito individual. Te invitamos a reconsiderar: cuando el pozo retrasa una ambulancia o rompe una silla de ruedas, el resultado ya no depende del mérito sino de infraestructura compartida. Además esto afecta directamente a otros y ese \"otros\" un día podrías ser vos."
           }
         ]
       }
