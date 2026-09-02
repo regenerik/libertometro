@@ -210,7 +210,7 @@ const questions = [
   {
     id: "malvinas",
     title: "Malvinas y propiedad",
-    prompt: "¿Las Malvinas te generan orgullo nacional o pensás que son argentinas?",
+    prompt: "¿Las Malvinas te generan orgullo nacional o pensás que ya no son argentinas?",
     context: "La soberanía es una idea colectiva. Si todo es contrato privado, la pregunta incómoda es quién puede vender, defender o representar un territorio.",
     answers: [
       {
@@ -252,7 +252,7 @@ const questions = [
         ]
       },
       {
-        label: "No, me da igual",
+        label: "Pienso que ya no son argentinas",
         value: "malvinas_no",
         checks: [
           {
@@ -556,12 +556,6 @@ const questions = [
             anyBeliefs: ["no_external_effects"],
             title: "El daño ajeno igual te alcanza",
             detail: "No podés decidir sobre algo que afecta a los demás y al mismo tiempo sostener que nada de lo que hagan los demás tiene que afectarte. Si la empresa contamina el río, tu compra individual de agua no deshace el daño colectivo ni el derecho de otros a no tomar agua contaminada."
-          },
-          {
-            id: "environment_no_hospital",
-            anyBeliefs: ["private_health", "taxes_theft"],
-            title: "Enfermar para después atender",
-            detail: "Aceptar contaminación rentable y pedir salud disponible después traslada el costo ambiental al sistema sanitario que decías no querer financiar."
           }
         ]
       }
