@@ -701,7 +701,8 @@ button:not(:disabled):hover {
   white-space: nowrap;
 }
 
-.captcha-layer {
+.captcha-layer,
+.intermediate-layer {
   position: fixed;
   inset: 0;
   z-index: 80;
@@ -710,7 +711,12 @@ button:not(:disabled):hover {
   padding: 18px;
 }
 
-.captcha-backdrop {
+.intermediate-layer {
+  z-index: 84;
+}
+
+.captcha-backdrop,
+.intermediate-backdrop {
   position: absolute;
   inset: 0;
   background: rgba(21, 17, 15, 0.38);
@@ -897,6 +903,112 @@ button:not(:disabled):hover {
 .captcha-result p {
   margin: 10px 0 16px;
   color: var(--muted);
+}
+
+.intermediate-dialog {
+  position: relative;
+  width: min(500px, 100%);
+  overflow: hidden;
+  border: 1px solid rgba(21, 17, 15, 0.18);
+  border-radius: 8px;
+  background: #fffaf0;
+  box-shadow: 0 24px 70px rgba(21, 17, 15, 0.28);
+}
+
+.intermediate-top {
+  padding: 16px 18px;
+  color: #fffaf0;
+  background: var(--green);
+}
+
+.intermediate-top span {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 0.72rem;
+  font-weight: 900;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+.intermediate-top h2 {
+  margin: 0;
+  font-size: 1.28rem;
+  line-height: 1.18;
+}
+
+.intermediate-body {
+  display: grid;
+  gap: 12px;
+  padding: 16px 18px;
+}
+
+.intermediate-body p {
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.42;
+}
+
+.retired-belief-preview {
+  border: 1px solid rgba(18, 114, 95, 0.24);
+  border-radius: 8px;
+  padding: 10px 12px;
+  background: var(--green-soft);
+  color: var(--ink);
+}
+
+.intermediate-options {
+  display: grid;
+  gap: 8px;
+}
+
+.intermediate-option {
+  display: grid;
+  grid-template-columns: 20px 1fr;
+  gap: 10px;
+  align-items: start;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 10px;
+  background: rgba(255, 255, 255, 0.68);
+  cursor: pointer;
+}
+
+.intermediate-option:has(input:checked) {
+  border-color: rgba(18, 114, 95, 0.58);
+  background: var(--green-soft);
+}
+
+.intermediate-option input {
+  width: 17px;
+  height: 17px;
+  margin: 2px 0 0;
+  accent-color: var(--green);
+}
+
+.intermediate-option span {
+  font-size: 0.94rem;
+  line-height: 1.32;
+}
+
+.intermediate-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  border-top: 1px solid var(--line);
+  padding: 12px 18px 16px;
+}
+
+.intermediate-actions span {
+  color: var(--muted);
+  font-size: 0.82rem;
+  font-weight: 800;
+}
+
+.intermediate-actions .primary-button {
+  width: auto;
+  min-width: 120px;
+  margin-top: 0;
 }
 
 .meter-panel {
@@ -1107,6 +1219,44 @@ button:not(:disabled):hover {
   line-height: 1.25;
 }
 
+.new-beliefs-section {
+  display: grid;
+  gap: 7px;
+  margin-top: 12px;
+  border-top: 1px solid rgba(216, 199, 174, 0.72);
+  padding-top: 10px;
+}
+
+.aside-subheading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.aside-subheading strong {
+  color: var(--green);
+  font-size: 0.78rem;
+  line-height: 1.2;
+}
+
+.aside-subheading span {
+  flex: 0 0 auto;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 4px 7px;
+  background: rgba(255, 255, 255, 0.55);
+  color: var(--muted);
+  font-size: 0.72rem;
+  font-weight: 800;
+}
+
+.new-beliefs span {
+  border-color: rgba(18, 114, 95, 0.32);
+  background: var(--green-soft);
+  color: var(--green);
+}
+
 .deconversion-banner {
   display: grid;
   gap: 4px;
@@ -1182,6 +1332,7 @@ button:not(:disabled):hover {
   .meter-card p,
   .meter-card .reasoning-count,
   .selected-beliefs,
+  .new-beliefs-section,
   .inconsistency-list span,
   .list-sources {
     display: none;

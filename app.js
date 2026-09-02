@@ -36,6 +36,141 @@ const beliefs = [
   { id: "milei_voter", text: "Acompaño a Milei aunque cambie de postura, porque el rumbo importa más." }
 ];
 
+const intermediateBeliefsByBelief = {
+  no_state: [
+    { id: "no_state_minimum_state", text: "Un Estado mínimo puede ser necesario para garantizar derechos básicos." },
+    { id: "no_state_controlled_state", text: "El problema no es que exista Estado, sino cómo se controla." }
+  ],
+  taxes_theft: [
+    { id: "taxes_theft_services", text: "Algunos impuestos pueden ser aceptables si vuelven en servicios concretos." },
+    { id: "taxes_theft_bad_use", text: "El problema puede ser el mal uso, no la existencia de impuestos." }
+  ],
+  poor_choice: [
+    { id: "poor_choice_context", text: "La voluntad importa, pero no todos arrancan desde el mismo lugar." },
+    { id: "poor_choice_opportunities", text: "La pobreza también puede depender de contexto, educación, salud y oportunidades." }
+  ],
+  anti_welfare: [
+    { id: "anti_welfare_control", text: "La ayuda social debería controlarse mejor, no desaparecer automáticamente." },
+    { id: "anti_welfare_temporary", text: "Una asistencia temporal puede evitar que alguien caiga más abajo." }
+  ],
+  market_self: [
+    { id: "market_self_rules", text: "El mercado puede funcionar mejor con reglas claras." },
+    { id: "market_self_abuse", text: "Sin controles mínimos, el más fuerte puede abusar del resto." }
+  ],
+  public_university_cost: [
+    { id: "public_university_investment", text: "La educación pública puede ser una inversión social." },
+    { id: "public_university_common_return", text: "Pagar educación con impuestos puede beneficiar incluso a quienes no estudian." }
+  ],
+  private_contracts: [
+    { id: "private_contracts_rules", text: "Algunos acuerdos necesitan reglas externas para que no haya abuso." },
+    { id: "private_contracts_desperation", text: "No todo contrato es libre si una parte está desesperada." }
+  ],
+  privatize_all: [
+    { id: "privatize_all_guarantee", text: "Algunas áreas pueden ser privadas, pero otras necesitan garantía pública." },
+    { id: "privatize_all_monopoly", text: "Privatizar sin control puede cambiar monopolio estatal por monopolio privado." }
+  ],
+  no_subsidies: [
+    { id: "no_subsidies_focused", text: "Algunos subsidios focalizados pueden sostener necesidades básicas." },
+    { id: "no_subsidies_design", text: "El problema puede ser el subsidio mal diseñado, no toda ayuda." }
+  ],
+  private_health: [
+    { id: "private_health_access", text: "La salud privada puede ser buena, pero no todos pueden pagarla." },
+    { id: "private_health_minimum_network", text: "Una red pública mínima puede salvar vidas donde el mercado no llega." }
+  ],
+  no_labor_laws: [
+    { id: "no_labor_laws_abuse", text: "Las leyes laborales también pueden evitar abusos." },
+    { id: "no_labor_laws_need", text: "Un contrato laboral no siempre es libre si una parte necesita comer." }
+  ],
+  no_price_controls: [
+    { id: "no_price_controls_essentials", text: "Algunos servicios esenciales necesitan límites para evitar abusos." },
+    { id: "no_price_controls_users", text: "Regular tarifas no siempre es negar mercado; puede ser proteger usuarios cautivos." }
+  ],
+  no_environment: [
+    { id: "no_environment_third_parties", text: "Producir no debería significar contaminarle la vida a otros." },
+    { id: "no_environment_future", text: "Cuidar ambiente también protege propiedad, salud y futuro económico." }
+  ],
+  foreign_resources: [
+    { id: "foreign_resources_rules", text: "Los recursos estratégicos pueden requerir reglas nacionales." },
+    { id: "foreign_resources_sovereignty", text: "Vender recursos no siempre es libertad si afecta agua, suelo o soberanía." }
+  ],
+  meritocracy: [
+    { id: "meritocracy_unequal_start", text: "El mérito existe, pero las oportunidades no siempre son iguales." },
+    { id: "meritocracy_better_floor", text: "Premiar esfuerzo tiene más sentido si el punto de partida no está roto." }
+  ],
+  private_security: [
+    { id: "private_security_complement", text: "La seguridad privada puede complementar, pero no reemplazar justicia pública." },
+    { id: "private_security_poverty", text: "Si la seguridad depende de pagar, los pobres quedan menos protegidos." }
+  ],
+  private_justice: [
+    { id: "private_justice_public_authority", text: "Algunos conflictos necesitan jueces públicos con autoridad común." },
+    { id: "private_justice_access", text: "La justicia no debería depender solo de quién puede pagar mejor defensa." }
+  ],
+  education_market: [
+    { id: "education_market_guarantee", text: "La educación puede competir, pero también debería estar garantizada." },
+    { id: "education_market_not_product", text: "Aprender no es igual que comprar un producto cualquiera." }
+  ],
+  private_roads: [
+    { id: "private_roads_planning", text: "La infraestructura básica necesita planificación común." },
+    { id: "private_roads_access", text: "Lo privado puede operar partes, pero alguien debe garantizar acceso." }
+  ],
+  anti_unions: [
+    { id: "anti_unions_balance", text: "Los sindicatos pueden ser cuestionables, pero también equilibran poder laboral." },
+    { id: "anti_unions_corruption", text: "El problema puede ser la corrupción sindical, no organizar trabajadores." }
+  ],
+  public_workers: [
+    { id: "public_workers_real_roles", text: "Hay empleados públicos inútiles, pero también médicos, docentes y bomberos." },
+    { id: "public_workers_performance", text: "El problema es controlar desempeño, no despreciar toda función pública." }
+  ],
+  capital_without_flag: [
+    { id: "capital_without_flag_national_interest", text: "La inversión puede ser libre, pero hay intereses nacionales legítimos." },
+    { id: "capital_without_flag_strategy", text: "No todo patriotismo económico es atraso; a veces es defensa estratégica." }
+  ],
+  state_bad_manager: [
+    { id: "state_bad_manager_key_services", text: "El Estado puede administrar mal, pero también puede sostener servicios clave." },
+    { id: "state_bad_manager_transparency", text: "La solución puede ser control y transparencia, no abandono total." }
+  ],
+  no_inherited_costs: [
+    { id: "no_inherited_costs_common_life", text: "Vivir en sociedad implica compartir algunos costos inevitables." },
+    { id: "no_inherited_costs_prevention", text: "Algunos gastos comunes evitan problemas más caros después." }
+  ],
+  no_external_effects: [
+    { id: "no_external_effects_third_parties", text: "Hay acciones privadas que afectan a terceros aunque no firmen nada." },
+    { id: "no_external_effects_limit", text: "La libertad propia termina cuando el costo se lo come otro." }
+  ],
+  presidential_cabinet: [
+    { id: "presidential_cabinet_same_standard", text: "Si se critica a la casta, también hay que revisar aliados propios." },
+    { id: "presidential_cabinet_not_every_name", text: "Apoyar un rumbo no obliga a justificar cualquier nombre." }
+  ],
+  climate_socialist_lie: [
+    { id: "climate_socialist_lie_evidence", text: "Puede haber debate político, pero la evidencia científica merece atención." },
+    { id: "climate_socialist_lie_not_left", text: "Cuidar el clima no tiene por qué ser una idea de izquierda." }
+  ],
+  future_debt_theft: [
+    { id: "future_debt_theft_all_governments", text: "La deuda también compromete generaciones futuras aunque la tome mi gobierno." },
+    { id: "future_debt_theft_limits", text: "Endeudarse puede ser necesario, pero no debería justificarse sin límites." }
+  ],
+  disappeared_number_indignation: [
+    { id: "disappeared_number_indignation_without_minimizing", text: "La cifra puede discutirse sin minimizar el crimen estatal." },
+    { id: "disappeared_number_indignation_crime_first", text: "Lo central debería ser condenar desapariciones, tortura y terrorismo de Estado." }
+  ],
+  selfish_indifference: [
+    { id: "selfish_indifference_returns", text: "Lo que le pasa a otros puede terminar afectándome también." },
+    { id: "selfish_indifference_coexistence", text: "La indiferencia total rompe cualquier idea mínima de convivencia." }
+  ],
+  abortion_birthrate_belief: [
+    { id: "abortion_birthrate_belief_regulated", text: "El aborto legal no está tan mal si viene con educación y prevención." },
+    { id: "abortion_birthrate_belief_many_causes", text: "La natalidad depende de muchas causas, no solo de una ley." }
+  ],
+  anti_communism: [
+    { id: "anti_communism_trade_rules", text: "Se puede rechazar una ideología y aun así comerciar con reglas claras." },
+    { id: "anti_communism_foreign_policy", text: "La política exterior necesita coherencia, no solo slogans." }
+  ],
+  milei_voter: [
+    { id: "milei_voter_no_blank_check", text: "Apoyar un rumbo no significa negar contradicciones." },
+    { id: "milei_voter_explain_changes", text: "Si cambia de postura, debería poder explicarse con argumentos y datos." }
+  ]
+};
+
 const defaultSources = [
   {
     label: "Chequeado: qué es el libertarismo",
@@ -1470,13 +1605,15 @@ function createFreshState() {
     stage: "survey",
     selectedBeliefs: [],
     initialBeliefs: [],
+    newBeliefs: [],
     usedQuestions: [],
     currentQuestionId: null,
     nodes: [],
     answers: [],
     inconsistencies: [],
     triggeredChecks: [],
-    pendingCaptcha: null
+    pendingCaptcha: null,
+    pendingIntermediateBeliefs: null
   };
 }
 
@@ -1503,7 +1640,10 @@ const dom = {
   inconsistencyList: document.querySelector("#inconsistency-list"),
   selectedBeliefCount: document.querySelector("#selected-belief-count"),
   selectedBeliefs: document.querySelector("#selected-beliefs"),
-  captchaLayer: document.querySelector("#captcha-layer")
+  newBeliefCount: document.querySelector("#new-belief-count"),
+  newBeliefs: document.querySelector("#new-beliefs"),
+  captchaLayer: document.querySelector("#captcha-layer"),
+  intermediateLayer: document.querySelector("#intermediate-layer")
 };
 
 function init() {
@@ -1574,6 +1714,7 @@ function startNewRun() {
   state.stage = "play";
   state.selectedBeliefs = selected;
   state.initialBeliefs = selected;
+  state.newBeliefs = [];
   showApp();
   pickNextQuestion();
 }
@@ -1615,6 +1756,7 @@ function pickNextQuestion() {
   state.currentQuestionId = question.id;
   state.usedQuestions.push(question.id);
   state.pendingCaptcha = null;
+  state.pendingIntermediateBeliefs = null;
   state.nodes = [
     {
       id: makeId("q"),
@@ -1642,16 +1784,18 @@ function finishRun() {
   const removedCount = Math.max(0, initialBeliefs.length - state.selectedBeliefs.length);
   const reduction = initialBeliefs.length ? Math.round((removedCount / initialBeliefs.length) * 100) : 0;
   const libertarianPercent = Math.round((state.selectedBeliefs.length / beliefs.length) * 100);
+  const newBeliefCount = Array.isArray(state.newBeliefs) ? state.newBeliefs.length : 0;
 
   state.currentQuestionId = null;
   state.pendingCaptcha = null;
+  state.pendingIntermediateBeliefs = null;
   state.nodes = [
     {
       id: makeId("f"),
       type: "finish",
       title: changed ? "Recorrido terminado" : "Blindaje completado",
       body: changed
-        ? `Felicitaciones: llegaste al final con ${libertarianPercent}% de libertarismo activo y redujiste ${reduction}% de las creencias que habías marcado al inicio.`
+        ? `Felicitaciones: llegaste al final con ${libertarianPercent}% de libertarismo activo y redujiste ${reduction}% de las creencias que habías marcado al inicio.${newBeliefCount ? ` Además sumaste ${newBeliefCount} ${newBeliefCount === 1 ? "creencia intermedia nueva" : "creencias intermedias nuevas"}.` : ""}`
         : "Lamentamos que su seguridad y ego se basen enteramente en sus creencias actuales. No fue nuestra intención intentar desestabilizarle. Mejor suerte la próxima.",
       depth: 0,
       options: []
@@ -2105,6 +2249,7 @@ function renderAll() {
   renderMeter();
   renderSelectedBeliefs();
   renderCaptcha();
+  renderIntermediateBeliefModal();
 }
 
 function renderMap() {
@@ -2293,6 +2438,13 @@ function renderCaptcha() {
 function dropBelief(beliefId) {
   if (!state.selectedBeliefs.includes(beliefId)) return;
   state.selectedBeliefs = state.selectedBeliefs.filter((id) => id !== beliefId);
+  const options = getIntermediateBeliefsFor(beliefId);
+  state.pendingIntermediateBeliefs = options.length
+    ? {
+        beliefId,
+        selectedIds: []
+      }
+    : null;
   saveState();
   renderAll();
 }
@@ -2303,6 +2455,44 @@ function restoreBelief(beliefId) {
   state.selectedBeliefs = beliefs
     .map((belief) => belief.id)
     .filter((id) => id === beliefId || state.selectedBeliefs.includes(id));
+  saveState();
+  renderAll();
+}
+
+function getIntermediateBeliefsFor(beliefId) {
+  return intermediateBeliefsByBelief[beliefId] || [];
+}
+
+function getAllIntermediateBeliefs() {
+  return Object.values(intermediateBeliefsByBelief).flat();
+}
+
+function toggleIntermediateBelief(beliefId) {
+  const pending = state.pendingIntermediateBeliefs;
+  if (!pending) return;
+  const selected = new Set(pending.selectedIds || []);
+  if (selected.has(beliefId)) {
+    selected.delete(beliefId);
+  } else {
+    selected.add(beliefId);
+  }
+  pending.selectedIds = [...selected];
+  saveState();
+  renderAll();
+}
+
+function continueAfterIntermediateBeliefs() {
+  const pending = state.pendingIntermediateBeliefs;
+  if (!pending) return;
+  const available = new Set(getAllIntermediateBeliefs().map((belief) => belief.id));
+  const selected = new Set(state.newBeliefs || []);
+  (pending.selectedIds || []).forEach((id) => {
+    if (available.has(id)) {
+      selected.add(id);
+    }
+  });
+  state.newBeliefs = [...selected];
+  state.pendingIntermediateBeliefs = null;
   saveState();
   renderAll();
 }
@@ -2434,10 +2624,63 @@ function renderMeter() {
 
 function renderSelectedBeliefs() {
   const selected = beliefs.filter((belief) => state.selectedBeliefs.includes(belief.id));
+  const newBeliefs = getAllIntermediateBeliefs().filter((belief) => {
+    return (state.newBeliefs || []).includes(belief.id);
+  });
   dom.selectedBeliefCount.textContent = selected.length;
   dom.selectedBeliefs.innerHTML = selected.length
     ? selected.map((belief) => `<span>${belief.text}</span>`).join("")
     : `<span class="empty-belief">No quedan creencias activas.</span>`;
+  dom.newBeliefCount.textContent = newBeliefs.length;
+  dom.newBeliefs.innerHTML = newBeliefs.length
+    ? newBeliefs.map((belief) => `<span>${belief.text}</span>`).join("")
+    : `<span class="empty-belief">Todavía no elegiste creencias intermedias.</span>`;
+}
+
+function renderIntermediateBeliefModal() {
+  if (!dom.intermediateLayer) return;
+  const pending = state.pendingIntermediateBeliefs;
+  if (!pending) {
+    dom.intermediateLayer.innerHTML = "";
+    dom.intermediateLayer.classList.add("hidden");
+    return;
+  }
+
+  const original = beliefs.find((belief) => belief.id === pending.beliefId);
+  const options = getIntermediateBeliefsFor(pending.beliefId);
+  const selected = new Set(pending.selectedIds || []);
+
+  dom.intermediateLayer.classList.remove("hidden");
+  dom.intermediateLayer.innerHTML = `
+    <div class="intermediate-backdrop"></div>
+    <section class="intermediate-dialog" role="dialog" aria-modal="true" aria-labelledby="intermediate-title">
+      <div class="intermediate-top">
+        <span>Creencias intermedias opcionales</span>
+        <h2 id="intermediate-title">Soltaste una creencia inicial</h2>
+      </div>
+      <div class="intermediate-body">
+        ${original ? `<p class="retired-belief-preview">Ya no creo en: <strong>${original.text}</strong></p>` : ""}
+        <p>Podés elegir alguna idea menos absoluta para sumar a tus nuevas creencias. También podés no marcar nada y seguir.</p>
+        <div class="intermediate-options">
+          ${options.map((belief) => `
+            <label class="intermediate-option">
+              <input type="checkbox" value="${belief.id}" ${selected.has(belief.id) ? "checked" : ""}>
+              <span>${belief.text}</span>
+            </label>
+          `).join("")}
+        </div>
+      </div>
+      <div class="intermediate-actions">
+        <span>${selected.size} ${selected.size === 1 ? "elegida" : "elegidas"}</span>
+        <button id="intermediate-continue" class="primary-button" type="button">Seguir</button>
+      </div>
+    </section>
+  `;
+
+  dom.intermediateLayer.querySelectorAll(".intermediate-option input").forEach((input) => {
+    input.addEventListener("change", () => toggleIntermediateBelief(input.value));
+  });
+  dom.intermediateLayer.querySelector("#intermediate-continue").addEventListener("click", continueAfterIntermediateBeliefs);
 }
 
 function saveState() {
@@ -2447,10 +2690,26 @@ function saveState() {
 function loadState() {
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
-    return raw ? JSON.parse(raw) : null;
+    return raw ? normalizeLoadedState(JSON.parse(raw)) : null;
   } catch (error) {
     return null;
   }
+}
+
+function normalizeLoadedState(saved) {
+  return {
+    ...createFreshState(),
+    ...saved,
+    selectedBeliefs: Array.isArray(saved.selectedBeliefs) ? saved.selectedBeliefs : [],
+    initialBeliefs: Array.isArray(saved.initialBeliefs) ? saved.initialBeliefs : [],
+    newBeliefs: Array.isArray(saved.newBeliefs) ? saved.newBeliefs : [],
+    usedQuestions: Array.isArray(saved.usedQuestions) ? saved.usedQuestions : [],
+    nodes: Array.isArray(saved.nodes) ? saved.nodes : [],
+    answers: Array.isArray(saved.answers) ? saved.answers : [],
+    inconsistencies: Array.isArray(saved.inconsistencies) ? saved.inconsistencies : [],
+    triggeredChecks: Array.isArray(saved.triggeredChecks) ? saved.triggeredChecks : [],
+    pendingIntermediateBeliefs: saved.pendingIntermediateBeliefs || null
+  };
 }
 
 function makeId(prefix) {
