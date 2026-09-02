@@ -207,7 +207,7 @@ p {
 .start-card {
   position: fixed;
   right: 200px;
-  bottom: 20px;
+  bottom: 6px;
   z-index: 30;
   width: min(260px, calc(100vw - 224px));
   border: 14px solid var(--line);
@@ -1163,7 +1163,7 @@ button:not(:disabled):hover {
 
   .start-card {
     right: 118px;
-    bottom: 10px;
+    bottom: 4px;
     width: min(210px, calc(100vw - 134px));
   }
 
