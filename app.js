@@ -1,4 +1,4 @@
-const STORAGE_KEY = "libertometro-state-v13";
+const STORAGE_KEY = "libertometro-state-v14";
 
 const beliefs = [
   { id: "no_state", text: "El Estado no debería existir." },
@@ -377,9 +377,9 @@ const questions = [
         checks: [
           {
             id: "university_no_training",
-            anyAnswers: ["street_holes.learn_paving"],
-            title: "Experiencia justo cuando no te toca",
-            detail: "Antes pediste resolver calles. Improvisar con experiencia suena menos simpático cuando tu auto, tu cuerpo o un puente quedan en riesgo."
+            anyBeliefs: ["no_state", "private_roads", "no_inherited_costs", "selfish_indifference"],
+            title: "Experiencia sin garantía ni responsable",
+            detail: "Sin regulaciones estatales, la experiencia sin un estudio serio no es garantía de nada. Si un puente mal construido genera un accidente, no hay a quién reclamarle sin un Estado de por medio. Además, ¿quién haría ese puente? Si a un privado no le conviene económicamente, ese servicio esencial podría no llegar a tu casa o a la casa de alguien que te importa. Nadie está obligado a pagar gastos que decidís vos, así como vos no estás obligado a pagar por cosas que decidió otra persona."
           }
         ]
       }
