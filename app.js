@@ -783,6 +783,12 @@ const questions = [
             anyAnswers: ["emergency_help_yes"],
             title: "La urgencia también firma mal",
             detail: "Antes pediste ayuda cuando no podías negociar. En el trabajo, la necesidad también puede forzar acuerdos que no son realmente libres."
+          },
+          {
+            id: "labor_no_contract_indifference",
+            anyBeliefs: ["selfish_indifference"],
+            title: "El abuso también puede tocarte a vos",
+            detail: "Decir 'firmaste y listo' convierte el abuso laboral en problema individual del que quedó más débil en la negociación. Pero esa lógica choca con tu propia indiferencia: hoy el perjudicado es otro, mañana podés ser vos o alguien que te importa, y ahí la falta de una ley deja de ser una teoría cómoda."
           }
         ]
       }
