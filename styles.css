@@ -1,20 +1,24 @@
 :root {
   color-scheme: light;
-  --ink: #15110f;
-  --muted: #695f59;
-  --paper: #f6f1e8;
-  --panel: #fffaf0;
-  --panel-strong: #fff4dc;
-  --line: #d8c7ae;
-  --red: #c62828;
-  --red-soft: #ffe3dd;
+  --ink: #1b0622;
+  --muted: #6d5777;
+  --paper: #371859;
+  --panel: #fff7d1;
+  --panel-strong: #ffe343;
+  --line: #d5b93d;
+  --red: #cf2525;
+  --red-soft: #ffe1d8;
   --green: #12725f;
   --green-soft: #ddf4ec;
-  --blue: #215a8d;
-  --blue-soft: #e1edf8;
-  --amber: #a46100;
-  --shadow: 0 18px 50px rgba(45, 34, 22, 0.13);
-  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --blue: #46215b;
+  --blue-soft: #eee2ff;
+  --amber: #ce8d00;
+  --purple: #371859;
+  --purple-deep: #1b0622;
+  --purple-mid: #6c4c99;
+  --yellow: #ffd21c;
+  --shadow: 0 18px 50px rgba(27, 6, 34, 0.22);
+  font-family: Montserrat, Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
 
 * {
@@ -32,11 +36,10 @@ body {
   margin: 0;
   color: var(--ink);
   background:
-    linear-gradient(90deg, rgba(21, 17, 15, 0.045) 1px, transparent 1px),
-    linear-gradient(0deg, rgba(21, 17, 15, 0.045) 1px, transparent 1px),
-    linear-gradient(135deg, rgba(198, 40, 40, 0.08), transparent 38%, rgba(18, 114, 95, 0.08)),
-    var(--paper);
-  background-size: 28px 28px, 28px 28px, auto, auto;
+    linear-gradient(90deg, rgba(255, 210, 28, 0.13) 1px, transparent 1px),
+    linear-gradient(0deg, rgba(255, 210, 28, 0.09) 1px, transparent 1px),
+    linear-gradient(135deg, #1b0622 0 18%, #371859 18% 63%, #6c4c99 63% 100%);
+  background-size: 28px 28px, 28px 28px, auto;
 }
 
 button,
@@ -65,7 +68,7 @@ button {
 
 .kicker {
   margin: 0 0 10px;
-  color: var(--red);
+  color: var(--yellow);
   font-size: 0.77rem;
   font-weight: 800;
   letter-spacing: 0;
@@ -82,9 +85,11 @@ p {
 h1 {
   max-width: 840px;
   margin-bottom: 14px;
+  color: #fff7d1;
   font-size: clamp(2.4rem, 5vw, 5.8rem);
   line-height: 0.92;
   letter-spacing: 0;
+  text-shadow: 0 5px 0 rgba(27, 6, 34, 0.36);
 }
 
 h2 {
@@ -106,13 +111,53 @@ p {
 
 .intro {
   display: grid;
-  gap: 4px;
+  gap: 12px;
   padding: 48px 0 24px;
 }
 
 .intro p:last-child {
   max-width: 760px;
+  color: #fff7d1;
   font-size: 1.07rem;
+}
+
+.brand-lockup {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  width: fit-content;
+  max-width: 100%;
+  border: 1px solid rgba(255, 210, 28, 0.48);
+  border-radius: 8px;
+  padding: 8px 10px;
+  background: rgba(255, 247, 209, 0.96);
+  box-shadow: 0 12px 32px rgba(27, 6, 34, 0.22);
+}
+
+.brand-lockup span {
+  color: var(--purple);
+  font-size: 0.76rem;
+  font-weight: 900;
+  line-height: 1.1;
+  text-transform: uppercase;
+}
+
+.party-logo {
+  display: block;
+  width: min(188px, 58vw);
+  height: auto;
+  max-height: 48px;
+  object-fit: contain;
+}
+
+.compact-brand {
+  margin-bottom: 10px;
+  padding: 6px 8px;
+}
+
+.compact-brand .party-logo {
+  width: 150px;
+  max-height: 38px;
 }
 
 .survey-layout {
@@ -128,7 +173,7 @@ p {
 .history-card {
   border: 1px solid var(--line);
   border-radius: 8px;
-  background: rgba(255, 250, 240, 0.9);
+  background: rgba(255, 247, 209, 0.94);
   box-shadow: var(--shadow);
 }
 
@@ -158,7 +203,7 @@ p {
   border-radius: 999px;
   padding: 6px 10px;
   color: var(--muted);
-  background: rgba(255, 255, 255, 0.55);
+  background: rgba(255, 255, 255, 0.68);
   font-size: 0.82rem;
   font-weight: 700;
 }
@@ -176,22 +221,22 @@ p {
   gap: 10px;
   min-height: 64px;
   align-items: start;
-  border: 1px solid rgba(216, 199, 174, 0.9);
+  border: 1px solid rgba(213, 185, 61, 0.7);
   border-radius: 8px;
   padding: 12px;
-  background: rgba(255, 255, 255, 0.55);
+  background: rgba(255, 255, 255, 0.7);
   cursor: pointer;
   transition: border-color 160ms ease, background 160ms ease, transform 160ms ease;
 }
 
 .belief-option:hover {
-  border-color: var(--amber);
+  border-color: var(--purple-mid);
   background: #fff;
 }
 
 .belief-option:has(input:checked) {
-  border-color: var(--green);
-  background: var(--green-soft);
+  border-color: var(--purple);
+  background: #eee2ff;
 }
 
 .belief-option input {
@@ -215,7 +260,7 @@ p {
   border-width: 1px;
   border-radius: 8px;
   padding: 8px;
-  background: rgba(255, 250, 240, 0.94);
+  background: rgba(255, 247, 209, 0.96);
   box-shadow: var(--shadow);
 }
 
@@ -245,14 +290,14 @@ p {
 .primary-button {
   width: 100%;
   margin-top: 8px;
-  color: #fffaf0;
-  background: var(--red);
-  box-shadow: 0 10px 26px rgba(198, 40, 40, 0.25);
+  color: var(--purple-deep);
+  background: var(--yellow);
+  box-shadow: 0 10px 26px rgba(255, 210, 28, 0.24);
 }
 
 .secondary-button {
-  color: #fffaf0;
-  background: var(--green);
+  color: #fff7d1;
+  background: var(--purple);
 }
 
 .ghost-button {
@@ -292,7 +337,7 @@ button:not(:disabled):hover {
   align-items: end;
   justify-content: space-between;
   gap: 16px;
-  border-bottom: 1px solid rgba(216, 199, 174, 0.85);
+  border-bottom: 1px solid rgba(255, 210, 28, 0.42);
   padding: 18px 0 16px;
 }
 
@@ -1070,9 +1115,9 @@ button:not(:disabled):hover {
   height: 100vh;
   max-height: 100vh;
   overflow: auto;
-  border-left: 1px solid var(--line);
+  border-left: 1px solid rgba(255, 210, 28, 0.5);
   padding: 10px 8px;
-  background: rgba(246, 241, 232, 0.92);
+  background: rgba(27, 6, 34, 0.95);
   backdrop-filter: blur(10px);
   overflow-x: hidden;
   overflow-wrap: anywhere;
@@ -1081,6 +1126,13 @@ button:not(:disabled):hover {
 .meter-card,
 .history-card {
   padding: 12px;
+}
+
+.meter-panel .meter-card,
+.meter-panel .history-card,
+.meter-panel .deconversion-banner {
+  border-color: rgba(255, 210, 28, 0.42);
+  background: rgba(255, 247, 209, 0.96);
 }
 
 .meter-head {
@@ -1115,7 +1167,7 @@ button:not(:disabled):hover {
   overflow: hidden;
   border: 1px solid rgba(21, 17, 15, 0.12);
   border-radius: 999px;
-  background: #eadcc7;
+  background: rgba(27, 6, 34, 0.18);
 }
 
 .meter-fill {
@@ -1126,7 +1178,7 @@ button:not(:disabled):hover {
   width: 100%;
   height: 0;
   border-radius: inherit;
-  background: linear-gradient(0deg, var(--green), var(--amber), var(--red));
+  background: linear-gradient(0deg, var(--purple-mid), var(--yellow), #fff7d1);
   transition: height 760ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
@@ -1200,29 +1252,6 @@ button:not(:disabled):hover {
   color: var(--muted);
 }
 
-.history-card.compact {
-  box-shadow: none;
-}
-
-.history-card.compact .panel-heading {
-  align-items: center;
-}
-
-.history-card.compact .panel-heading h2 {
-  width: 100%;
-  border: 1px solid var(--line);
-  border-radius: 999px;
-  padding: 6px 8px;
-  background: rgba(255, 250, 240, 0.82);
-  font-size: 0.95rem;
-  line-height: 1.1;
-  text-align: center;
-}
-
-.history-card.compact .panel-heading span {
-  align-self: center;
-}
-
 .history-card h2 {
   overflow-wrap: anywhere;
 }
@@ -1236,6 +1265,40 @@ button:not(:disabled):hover {
 .history-card .panel-heading span {
   max-width: 100%;
   white-space: normal;
+}
+
+.history-card.compact {
+  box-shadow: none;
+}
+
+.history-card.compact .panel-heading {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid rgba(213, 185, 61, 0.55);
+  border-radius: 8px;
+  margin-bottom: 10px;
+  padding: 8px;
+  background: rgba(255, 255, 255, 0.5);
+}
+
+.history-card.compact .panel-heading h2 {
+  color: var(--purple);
+  font-size: 0.82rem;
+  line-height: 1.15;
+  text-align: left;
+}
+
+.history-card.compact .panel-heading span {
+  display: inline-grid;
+  place-items: center;
+  min-width: 28px;
+  min-height: 28px;
+  border-color: rgba(55, 24, 89, 0.28);
+  padding: 4px 7px;
+  color: var(--purple);
+  background: #fff7d1;
 }
 
 .inconsistency-list,
@@ -1257,10 +1320,10 @@ button:not(:disabled):hover {
 
 .selected-beliefs span {
   border: 1px solid var(--line);
-  border-radius: 999px;
-  padding: 6px 9px;
-  background: rgba(255, 255, 255, 0.55);
-  color: var(--muted);
+  border-radius: 7px;
+  padding: 7px 8px;
+  background: rgba(255, 255, 255, 0.64);
+  color: var(--purple);
   font-size: 0.76rem;
   line-height: 1.25;
 }
