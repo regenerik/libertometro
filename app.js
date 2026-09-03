@@ -1187,7 +1187,11 @@ questions.push(
               { label: "Gabinete LA NACION", url: "https://www.lanacion.com.ar/politica/asi-quedo-el-gabinete-del-presidente-javier-milei-uno-por-uno-todos-los-ministros-y-secretarios-nid10122023/" }
             ]
           }
-        ]
+        ],
+        note: {
+          title: "Sin inconsistencia inmediata",
+          body: "Sería bueno que al elegir una postura esta se mantenga en el tiempo. Elegir a alguien por rechazar a los ladrones de siempre y después permitir que esos nombres sigan si ahora sirven no es una consistencia demasiado respetable: es cambiar el criterio cuando cambia la camiseta."
+        }
       }
     ]
   },
