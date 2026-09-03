@@ -1170,8 +1170,8 @@ button:not(:disabled):hover {
 
 .meter-head {
   display: grid;
-  gap: 5px;
-  margin-bottom: 10px;
+  gap: 4px;
+  margin-bottom: 8px;
   text-align: center;
 }
 
@@ -1183,20 +1183,20 @@ button:not(:disabled):hover {
 }
 
 .meter-head strong {
-  font-size: 1.85rem;
+  font-size: 1.68rem;
   line-height: 1;
 }
 
 .meter-body {
   display: grid;
   justify-items: center;
-  gap: 10px;
+  gap: 8px;
 }
 
 .meter-track {
   position: relative;
   width: 34px;
-  height: clamp(180px, 34vh, 310px);
+  height: clamp(128px, 22vh, 220px);
   overflow: hidden;
   border: 1px solid rgba(21, 17, 15, 0.12);
   border-radius: 999px;
@@ -1217,17 +1217,17 @@ button:not(:disabled):hover {
 
 .meter-card p {
   margin: 0;
-  font-size: 0.8rem;
+  font-size: 0.74rem;
   line-height: 1.28;
   text-align: center;
 }
 
 .meter-card .reasoning-count {
-  margin-top: 8px;
+  margin-top: 7px;
   border-top: 1px solid rgba(216, 199, 174, 0.75);
-  padding-top: 8px;
+  padding-top: 7px;
   color: var(--ink);
-  font-size: 0.76rem;
+  font-size: 0.71rem;
   line-height: 1.35;
 }
 
@@ -1301,6 +1301,11 @@ button:not(:disabled):hover {
 }
 
 .history-card.compact {
+  display: grid;
+  align-content: start;
+  gap: 10px;
+  min-height: 232px;
+  overflow: hidden;
   box-shadow: none;
 }
 
@@ -1311,7 +1316,7 @@ button:not(:disabled):hover {
   gap: 8px;
   border: 1px solid rgba(213, 185, 61, 0.55);
   border-radius: 8px;
-  margin-bottom: 10px;
+  margin-bottom: 0;
   padding: 8px;
   background: rgba(255, 255, 255, 0.5);
 }
@@ -1347,6 +1352,7 @@ button:not(:disabled):hover {
 .selected-beliefs {
   display: grid;
   gap: 7px;
+  min-height: 112px;
   max-height: 22vh;
   overflow: auto;
 }
@@ -1367,6 +1373,11 @@ button:not(:disabled):hover {
   margin-top: 12px;
   border-top: 1px solid rgba(216, 199, 174, 0.72);
   padding-top: 10px;
+}
+
+.new-beliefs-section .selected-beliefs {
+  min-height: 0;
+  max-height: 12vh;
 }
 
 .aside-subheading {
