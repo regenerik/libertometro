@@ -243,6 +243,16 @@ function makeCaptchaReply(scope) {
   };
 }
 
+function makeAlignmentNote(beliefIds, reconsiderOptionValue, switchLabel, detail = "") {
+  return {
+    beliefIds,
+    detail,
+    reconsiderOptionValue,
+    switchText: "Podés reconsiderar y responder:",
+    switchLabel
+  };
+}
+
 const questions = [
   {
     id: "street_holes",
@@ -330,6 +340,11 @@ const questions = [
       {
         label: "No, que cada uno esquive como pueda",
         value: "street_no",
+        alignment: makeAlignmentNote(
+          ["selfish_indifference", "private_roads", "no_external_effects"],
+          "street_yes",
+          "Sí, alguien debería arreglarlos"
+        ),
         checks: [
           {
             id: "street_no_emergency",
@@ -566,6 +581,11 @@ const questions = [
       {
         label: "No, solo si pagué",
         value: "emergency_help_no",
+        alignment: makeAlignmentNote(
+          ["private_security", "private_contracts", "no_state", "taxes_theft", "no_subsidies"],
+          "emergency_help_yes",
+          "Sí, tiene que venir ayuda"
+        ),
         checks: [
           {
             id: "fire_no_help",
@@ -624,6 +644,11 @@ const questions = [
       {
         label: "No, que el consumidor elija",
         value: "inspect_food_no",
+        alignment: makeAlignmentNote(
+          ["market_self", "no_state", "no_external_effects", "selfish_indifference"],
+          "inspect_food_yes",
+          "Sí, debería controlarse"
+        ),
         checks: [
           {
             id: "inspection_no",
@@ -684,6 +709,11 @@ const questions = [
       {
         label: "No, si es rentable que siga. Yo me compro mi propia agua de otro lado",
         value: "environment_no",
+        alignment: makeAlignmentNote(
+          ["no_environment", "market_self", "foreign_resources", "no_external_effects", "selfish_indifference"],
+          "environment_stop_yes",
+          "Sí, tienen que frenarla"
+        ),
         checks: [
           {
             id: "environment_private_water_externality",
@@ -742,6 +772,11 @@ const questions = [
       {
         label: "No, firmaste y listo",
         value: "labor_protect_no",
+        alignment: makeAlignmentNote(
+          ["no_labor_laws", "private_contracts", "market_self"],
+          "labor_protect_yes",
+          "Sí, eso es abuso"
+        ),
         checks: [
           {
             id: "labor_no_contract",
@@ -801,6 +836,11 @@ const questions = [
       {
         label: "No, que pague quien pueda",
         value: "utility_cap_no",
+        alignment: makeAlignmentNote(
+          ["no_price_controls", "market_self", "selfish_indifference", "no_external_effects"],
+          "utility_cap_yes",
+          "Sí, debería haber un límite"
+        ),
         checks: [
           {
             id: "utility_no_cap",
@@ -833,6 +873,11 @@ const questions = [
       {
         label: "No, que paguen todo privado",
         value: "foreigners_no",
+        alignment: makeAlignmentNote(
+          ["private_health", "public_university_cost", "capital_without_flag", "private_contracts", "foreign_resources"],
+          "foreigners_yes",
+          "Sí, si vive acá debería poder"
+        ),
         checks: [
           {
             id: "foreigners_contract",
@@ -906,6 +951,11 @@ const questions = [
       {
         label: "No, me arreglo solo",
         value: "public_justice_no",
+        alignment: makeAlignmentNote(
+          ["private_security", "private_justice", "no_state", "selfish_indifference", "no_external_effects"],
+          "public_justice_yes",
+          "Sí, quiero que actúen"
+        ),
         checks: [
           {
             id: "crime_self_help",
@@ -964,6 +1014,11 @@ const questions = [
       {
         label: "No, cada uno debería preverlo",
         value: "safety_net_no",
+        alignment: makeAlignmentNote(
+          ["anti_welfare", "no_subsidies", "poor_choice", "taxes_theft", "selfish_indifference"],
+          "safety_net_yes",
+          "Sí, una red mínima"
+        ),
         checks: [
           {
             id: "safety_net_no",
@@ -1270,6 +1325,11 @@ questions.push(
       {
         label: "No, el mercado se adapta solo",
         value: "climate_market_only",
+        alignment: makeAlignmentNote(
+          ["climate_socialist_lie", "no_environment", "market_self", "no_state"],
+          "climate_policy_yes",
+          "Sí, hay que prevenir"
+        ),
         checks: [
           {
             id: "climate_market_only_cross",
@@ -1308,6 +1368,12 @@ questions.push(
       {
         label: "Sí, es su cuerpo y su decisión",
         value: "organ_market_yes",
+        alignment: makeAlignmentNote(
+          ["private_contracts", "market_self", "private_health", "poor_choice"],
+          "organ_market_no",
+          "No, eso debería estar prohibido",
+          "Esta respuesta convierte una necesidad extrema en contrato libre. Si esa es tu postura, se parece mucho a ideas de mercado sin regulación que no marcaste al inicio."
+        ),
         checks: [
           {
             id: "organ_market_coercion",
@@ -1849,22 +1915,54 @@ function selectOption(nodeId, optionIndex) {
   const added = runChecks([...localChecks, ...historicChecks], answerNode.id, answerNode.depth + 1);
 
   if (!added) {
-    state.nodes.push({
-      id: makeId("n"),
-      type: "note",
-      title: option.note?.title || "Sin inconsistencia inmediata",
-      body: option.note?.body || "Esta respuesta no chocó con tus marcas iniciales ni con el historial disponible. La próxima pregunta puede cruzarla.",
-      depth: answerNode.depth + 1,
-      parentId: answerNode.id,
-      switchNodeId: option.note?.switchOptionValue ? nodeId : null,
-      switchOptionValue: option.note?.switchOptionValue || null,
-      switchText: option.note?.switchText || "",
-      switchLabel: option.note?.switchLabel || ""
-    });
+    const alignment = getUnmarkedAlignment(option);
+    state.nodes.push(alignment
+      ? makeAlignmentNode(alignment, answerNode, nodeId)
+      : {
+          id: makeId("n"),
+          type: "note",
+          title: option.note?.title || "Sin inconsistencia inmediata",
+          body: option.note?.body || "Esta respuesta no chocó con tus marcas iniciales ni con el historial disponible. La próxima pregunta puede cruzarla.",
+          depth: answerNode.depth + 1,
+          parentId: answerNode.id,
+          switchNodeId: option.note?.switchOptionValue ? nodeId : null,
+          switchOptionValue: option.note?.switchOptionValue || null,
+          switchText: option.note?.switchText || "",
+          switchLabel: option.note?.switchLabel || ""
+        }
+    );
   }
 
   saveState();
   renderAll();
+}
+
+function getUnmarkedAlignment(option) {
+  if (!option.alignment) return null;
+  const initialBeliefs = new Set(state.initialBeliefs || []);
+  const beliefIds = (option.alignment.beliefIds || []).filter((id) => !initialBeliefs.has(id));
+  return beliefIds.length
+    ? {
+        ...option.alignment,
+        beliefIds
+      }
+    : null;
+}
+
+function makeAlignmentNode(alignment, answerNode, switchNodeId) {
+  return {
+    id: makeId("u"),
+    type: "alignment",
+    title: "Tu observación se alinea con creencias no marcadas al principio",
+    body: alignment.detail || "Para que esta respuesta tenga lógica con tu postura inicial, tendrías que haber declarado estas ideas desde el arranque. No es una inconsistencia activa: es una pista de que la respuesta viene con una ideología escondida.",
+    depth: answerNode.depth + 1,
+    parentId: answerNode.id,
+    unmarkedBeliefs: alignment.beliefIds,
+    switchNodeId: alignment.reconsiderOptionValue ? switchNodeId : null,
+    switchOptionValue: alignment.reconsiderOptionValue || null,
+    switchText: alignment.switchText || "Podés reconsiderar y responder:",
+    switchLabel: alignment.switchLabel || "Reconsiderar"
+  };
 }
 
 function pruneDescendants(parentId) {
@@ -2337,6 +2435,22 @@ function renderMap() {
 }
 
 function renderNodeBody(node) {
+  if (node.type === "alignment") {
+    return `
+      ${node.body ? `<p>${node.body}</p>` : ""}
+      ${renderUnmarkedBeliefs(node.unmarkedBeliefs || [])}
+      ${node.switchNodeId && node.switchOptionValue
+        ? `
+          <div class="node-actions note-switch">
+            <span>${node.switchText}</span>
+            <button type="button" data-switch-node="${node.switchNodeId}" data-switch-value="${node.switchOptionValue}">${node.switchLabel}</button>
+          </div>
+        `
+        : ""
+      }
+    `;
+  }
+
   if (node.type === "note" && node.switchNodeId && node.switchOptionValue) {
     return `
       ${node.body ? `<p>${node.body}</p>` : ""}
@@ -2361,6 +2475,23 @@ function renderNodeBody(node) {
   }
 
   return node.body ? `<p>${node.body}</p>` : "";
+}
+
+function renderUnmarkedBeliefs(beliefIds) {
+  const items = beliefIds
+    .map((id) => beliefs.find((belief) => belief.id === id))
+    .filter(Boolean);
+
+  if (!items.length) return "";
+
+  return `
+    <div class="unmarked-beliefs-box">
+      <span>Para sostener esa respuesta, también tendrías que haber marcado:</span>
+      <ul>
+        ${items.map((belief) => `<li>${belief.text}</li>`).join("")}
+      </ul>
+    </div>
+  `;
 }
 
 function switchAnswer(nodeId, optionValue) {
@@ -2578,6 +2709,7 @@ function getNodeEyebrow(type) {
     "global-error": "Cruce histórico",
     reconsider: "Consistente",
     note: "Observación",
+    alignment: "Observación ideológica",
     finish: "Resultado"
   };
   return labels[type] || "Nodo";

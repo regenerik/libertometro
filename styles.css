@@ -419,6 +419,16 @@ button:not(:disabled):hover {
   background: rgba(255, 255, 255, 0.62);
 }
 
+.node-alignment .node-card {
+  border-color: rgba(164, 97, 0, 0.42);
+  background: rgba(255, 244, 220, 0.82);
+}
+
+.node-alignment .node-eyebrow,
+.node-alignment h3 {
+  color: var(--amber);
+}
+
 .node-reconsider .node-card {
   border-color: rgba(18, 114, 95, 0.42);
   background: rgba(221, 244, 236, 0.62);
@@ -507,6 +517,42 @@ button:not(:disabled):hover {
 
 .criteria-box li {
   color: var(--ink);
+  line-height: 1.35;
+}
+
+.unmarked-beliefs-box {
+  display: grid;
+  gap: 8px;
+  margin-top: 12px;
+  border-left: 4px solid var(--amber);
+  padding: 10px 12px;
+  background: rgba(255, 250, 240, 0.78);
+}
+
+.unmarked-beliefs-box span {
+  color: var(--amber);
+  font-size: 0.76rem;
+  font-weight: 900;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+.unmarked-beliefs-box ul {
+  display: grid;
+  gap: 7px;
+  margin: 0;
+  padding-left: 0;
+  list-style: none;
+}
+
+.unmarked-beliefs-box li {
+  border: 1px solid rgba(164, 97, 0, 0.22);
+  border-radius: 8px;
+  padding: 8px;
+  background: rgba(255, 255, 255, 0.55);
+  color: var(--ink);
+  font-size: 0.9rem;
+  font-weight: 650;
   line-height: 1.35;
 }
 
