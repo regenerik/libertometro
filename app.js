@@ -1276,10 +1276,11 @@ questions.push(
         checks: [
           {
             id: "debt_inflation_tradeoff",
-            anyBeliefs: ["future_debt_theft", "taxes_theft"],
+            anyBeliefs: ["market_self", "presidential_cabinet", "future_debt_theft", "milei_voter"],
             title: "Impuestos futuros por tranquilidad presente",
-            detail: "Estás aceptando cambiar alivio presente por deuda futura. El truco es viejo: cuando lo hace otro gobierno es populismo; cuando lo hace el tuyo, le decís plan económico.",
+            detail: "Pero si Milei fue quien dijo que pedir prestado es endeudar a generaciones futuras: argentinos que todavía ni nacieron pagando mañana la fiesta de hoy. ¿Ya no estás más de acuerdo con tu presidente? El truco es viejo: cuando lo hace otro gobierno es populismo; cuando lo hace el tuyo, le decís plan económico. Además, si la economía se regula sola, aceptar deuda como herramienta política para calmar precios ya no suena tan libremercado.",
             sources: [
+              { label: "Milei: deuda inmoral", url: "https://www.youtube.com/watch?v=SHsHX8gph-M" },
               { label: "INDEC IPC", url: "https://www.indec.gob.ar/Nivel4/Tema/3/5/31" },
               { label: "Argentina: acuerdo FMI USD 20.000 millones", url: "https://www.argentina.gob.ar/node/462281" },
               { label: "Chequeado: deuda en la gestión Milei", url: "https://chequeado.com/el-explicador/cae-la-deuda-total-en-la-gestion-de-javier-milei-pero-aumenta-el-endeudamiento-en-dolares/" }
